@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
-    @Select("select * from user")
+    @Select("select * from user order by id asc")
     @ResultType(User.class)
     List<User> getAllUser();
 }
