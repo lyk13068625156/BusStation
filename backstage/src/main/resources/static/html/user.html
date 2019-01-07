@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url: '../user/getAllUser.do',
+                type: 'get',
+                dataType:'json',
+                async: true,
+                success: function (rs) {
+                    var htmls = "<thead><tr><th>ID</th><th>名字</th><th>密码</th><th>身份证号</th><th>性别</th><th>状态</th></tr></thead><tbody>";
+                    for(var i in rs){//遍历json数组时，这么写p为索引，0,1
+                        htmls += "<tr><td>" + rs[i].id + "</td>" +
+                            "<td>" + rs[i].name + "</td>" +
+                            "<td>" + rs[i].password + "</td>" +
+                            "<td>" + rs[i].pid + "</td>" +
+                            "<td>" + rs[i].sex + "</td>" +
+                            "<td>" + rs[i].status + "</td></tr>";
+                    }
+                    htmls +="</tbody>";
+                    $("#users").html(htmls);
+                },
+                error:function (rs) {
+                    alert("回调函数调用失败（error）")
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<h1>用户列表</h1>
+<table class="table table-striped" id="users">
+</table>
+</body>
+</html>

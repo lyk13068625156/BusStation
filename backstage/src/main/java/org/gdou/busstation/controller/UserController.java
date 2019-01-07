@@ -1,6 +1,6 @@
 package org.gdou.busstation.controller;
 
-import com.alibaba.fastjson.JSON;
+import org.gdou.busstation.model.PageModel;
 import org.gdou.busstation.model.User;
 import org.gdou.busstation.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,22 @@ public class UserController  extends BaseController{
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(path="/getAllUser.do", produces="text/html;charset=utf-8")
+    //@RequestMapping(path="/getAllUser.do", produces="text/html;charset=utf-8")
+    @RequestMapping(path="/getAllUser.do", produces="application/json;charset=utf-8")
     @ResponseBody
-    String getAllUser(){
+    PageModel getAllUser(Integer pageNumber, Integer pageSize){
         System.out.println("请求控制器成功");
+        System.out.println(pageNumber);
+        System.out.println(pageSize);
+
         List<User> userList = userService.getAllUser();
         for (int i = 0;i < userList.size(); i++){
             System.out.println(userList.get(i));;
         }
-        String rs = JSON.toJSONString(userList);
-        return rs;
+        PageModel pageModel = new PageModel();
+        pageModel.setRows(userList);
+        pageModel.setTotal(userList.size());
+        //String rs = JSON.toJSONString(userList);
+        return pageModel;
     }
 }
