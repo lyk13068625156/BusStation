@@ -1,12 +1,10 @@
 package org.gdou.busstation.service;
 
-import org.gdou.busstation.model.User;
-
-import java.util.List;
+import org.gdou.busstation.model.PageModel;
 
 
 public interface IUserService {
 
-    List<User> getAllUser();
+    PageModel getAllUser(Integer pageNumber, Integer pageSize);
 
 }

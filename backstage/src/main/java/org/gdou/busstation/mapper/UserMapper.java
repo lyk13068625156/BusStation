@@ -12,7 +12,10 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
-    @Select("select * from user order by id asc")
+    @Select("select count(*) from user")
+    int count();
+
+    @Select("select * from user order by id asc limit #{startIndex}, #{pageSize} ")
     @ResultType(User.class)
-    List<User> getAllUser();
+    List<User> getAllUser(Integer startIndex, Integer pageSize);
 }
