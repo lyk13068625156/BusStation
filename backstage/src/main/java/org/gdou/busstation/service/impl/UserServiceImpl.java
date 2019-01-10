@@ -25,7 +25,10 @@ public class UserServiceImpl implements IUserService {
         //生成数据库所需startIndex，获取数据，获取总数
         int startIndex = (pageNumber - 1) * pageSize;
         List<User> userList = userMapper.getAllUser(startIndex,pageSize,searchID,searchName,searchStatus);
-        int total = userMapper.count();
+
+        //获取上面这个语句调用mapper后返回结果的总行数（不受limit限制）
+        int total = userMapper.lastTimeCount();
+        System.out.println("total:" + total);
 
         //赋值总数、查询结果
         pageModel.setRows(userList);
