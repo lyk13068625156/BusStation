@@ -14,17 +14,18 @@ public class UserController  extends BaseController{
     @Autowired
     private IUserService userService;
 
-    //@RequestMapping(path="/getAllUser.do", produces="text/html;charset=utf-8")
     @RequestMapping(path="/getAllUser.do", produces="application/json;charset=utf-8")
     @ResponseBody
-    PageModel getAllUser(Integer pageNumber, Integer pageSize){
+    PageModel getAllUser(Integer pageNumber, Integer pageSize, String searchID, String searchName, String searchStatus){
         System.out.println("请求控制器成功");
         System.out.println(pageNumber);
         System.out.println(pageSize);
-
+        System.out.println(searchID);
+        System.out.println(searchName);
+        System.out.println(searchStatus);
         //在controller这里把(pageNumber,pageSize)---->(startIndex,pageSize)，以适应数据库sql语句
         //int startIndex = (pageNumber-1) * pageSize;
 
-        return userService.getAllUser(pageNumber,pageSize);
+        return userService.getAllUser(pageNumber,pageSize,searchID,searchName,searchStatus);
     }
 }
