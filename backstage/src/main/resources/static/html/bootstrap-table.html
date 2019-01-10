@@ -17,9 +17,17 @@
     <script src="../js/bootstrap-table-export.js"></script>
     <!--<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>-->
     <script src="../js/bootstrap-table-zh-CN.js"></script>
-    <script>
-        $(function () {
-            //初始化Table
+    <script  type="text/javascript">
+        // $(function () {
+        //     init();
+        // })
+
+        $(document).ready(function() {
+            // 初始化表格
+            init();
+        });
+
+        function init() {
             $('#users').bootstrapTable({
                 url: '../user/getAllUser.do',         //请求后台的URL（*）
                 method: 'get',                      //请求方式（*）
@@ -91,7 +99,11 @@
                     title: '状态',
                     formatter:function (value,row,index) {
                         return value == 1 ? "已激活" : "已冻结";
-                    }
+                    },
+                }, {
+                    field: 'email',
+                    title: '邮箱',
+                    // formatter:
                 }],
 
                 onLoadSuccess: function () {
@@ -101,24 +113,76 @@
                     //alert("数据加载失败！");
                 }
             });
-            function queryParams(params) {
-                var temp = {
-                    pageNumber: params.pageNumber,
-                    pageSize: params.pageSize,
-                };
-                return temp;
+        }
+
+        function queryParams(params) {
+            var searchID = document.getElementById("searchID").value;
+            var searchName = document.getElementById("searchName").value;
+            var searchStatus = document.getElementById("searchStatus").value;
+            console.log(searchID);
+            console.log(searchName);
+            console.log(searchStatus);
+            var temp = {
+                pageNumber: params.pageNumber,
+                pageSize: params.pageSize,
+                searchID:searchID,
+                searchName:searchName,
+                searchStatus:searchStatus,
             };
+            return temp;
+        };
+
+
+        $(function () {
+            $("#search").click(function () {
+                $('#users').bootstrapTable(('refresh')); // 很重要的一步，刷新url！更新params参数
+            })
         })
+
+        // $(function () {
+        //     $("#search").click(function () {
+        //         queryParams();
+        //     })
+        // })
+
     </script>
 </head>
 <body>
 <h1 align="center">用户列表</h1>
+<hr />
+
+<div align="center">
+    <div style="float: left; width: 20%">
+        <lable>id</lable>
+        <input type="text" class="form-control" id="searchID" />
+    </div>
+    <div style="float: left; width: 20%">
+        <lable>name</lable>
+        <input type="text" class="form-control" id="searchName" />
+    </div>
+    <div style="float: left; width: 20%">
+        <lable>status</lable>
+        <select  id="searchStatus">
+            <option value=""></option>
+            <option value="1">已激活</option>
+            <option value="0">已冻结</option>
+        </select>
+    </div>
+    <div style="float: left; width: 10%">
+        <button id="search">搜索</button>
+    </div>
+</div>
+
+
+<hr />
+
 <div id="toolbar">
     <button type="button" class="btn btn-default glyphicon glyphicon-plus">添加</button>
     <button type="button" class="btn btn-default glyphicon glyphicon-pencil">修改</button>
     <button type="button" class="btn btn-default glyphicon glyphicon-remove">删除</button>
 </div>
-<table class="table table-striped" id="users">
-</table>
+
+<table class="table table-striped" id="users"></table>
+
 </body>
 </html>

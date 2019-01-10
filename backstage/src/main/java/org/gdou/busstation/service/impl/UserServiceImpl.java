@@ -16,7 +16,7 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Override
-    public PageModel getAllUser(Integer pageNumber, Integer pageSize) {
+    public PageModel getAllUser(Integer pageNumber, Integer pageSize, String searchID, String searchName, String searchStatus) {
         //实例化部分参数
         PageModel pageModel = new PageModel();
         pageModel.setPageNumber(pageNumber);
@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
 
         //生成数据库所需startIndex，获取数据，获取总数
         int startIndex = (pageNumber - 1) * pageSize;
-        List<User> userList = userMapper.getAllUser(startIndex, pageSize);
+        List<User> userList = userMapper.getAllUser(startIndex,pageSize,searchID,searchName,searchStatus);
         int total = userMapper.count();
 
         //赋值总数、查询结果
