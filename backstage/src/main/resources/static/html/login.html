@@ -1,114 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!--<link rel="stylesheet" href="css/bootstrap.css">-->
-    <!--<script src="js/jquery.js"></script>-->
-    <!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
-
-    <style>
-        body{
-            background-color: #C7EDCC;
-            font-family: "microsoft yahei";
-            /*min-width: 800px;*/
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <script type="text/javascript">
+        // function login() {
+        //     //alert("进入了！")
+        //     $.ajax({
+        //         type: "get",
+        //         url: "/sys/login",
+        //         dataType: "json",
+        //         data: $("#loginForm").serialize(),
+        //         //data: $("#addUserFrom").serialize(),
+        //         async: true,
+        //         success:function () {
+        //             console.log($("#loginForm").serialize());
+        //             alert("success!");
+        //         },
+        //         error:function () {
+        //             alert("error!");
+        //         }
+        //     })
+        // }
+        function login() {
+            $.ajax({
+                type: "get",
+                url: "/sys/login",
+                dataType: "text",
+                //data: $("#loginForm").serialize(),
+                //data: $("#addUserFrom").serialize(),
+                //async: true,
+                success:function () {
+                    alert("success!");
+                },
+                error:function () {
+                    alert("error!");
+                }
+            })
         }
-        img{
-            width: 100%;
-            /*height: 462px;*/
-        }
-        .navbar{
-            /*margin-bottom: -10px;*/
-        }
-        #myppt{
-            margin-top: -20px;
-
-        }
-    </style>
+    </script>
 </head>
 <body>
-<ul class="nav navbar-nav navbar-right">
-    <li><a data-toggle="modal" data-target="#register" href=""><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-    <li><a data-toggle="modal" data-target="#login" href=""><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-</ul>
-<!-- 注册窗口 -->
-<div id="register" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-title">
-                <h1 class="text-center">注册</h1>
-            </div>
-            <div class="modal-body">
-                <form class="form-group" action="">
-                    <div class="form-group">
-                        <label for="">用户名</label>
-                        <input class="form-control" type="text" placeholder="6-15位字母或数字">
-                    </div>
-                    <div class="form-group">
-                        <label for="">密码</label>
-                        <input class="form-control" type="password" placeholder="至少6位字母或数字">
-                    </div>
-                    <div class="form-group">
-                        <label for="">再次输入密码</label>
-                        <input class="form-control" type="password" placeholder="至少6位字母或数字">
-                    </div>
-                    <div class="form-group">
-                        <label for="">邮箱</label>
-                        <input class="form-control" type="email" placeholder="例如:123@123.com">
-                    </div>
-                    <div class="text-right">
-                        <button class="btn btn-primary" type="submit">提交</button>
-                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
-                    </div>
-                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#login">已有账号？点我登录</a>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-3 column">
+                <form id="loginForm" role="form" method="GET" >
+                    <label for="username">Name</label>
+                    <input type="text" class="form-control" id="username" />
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" />
+                    <button type="submit" class="btn btn-default" onclick="login()">Sign in</button>
                 </form>
+                <ul class="nav nav-pills">
+                     <li role="presentation">
+                         <a href="register.html" class="href" target="_blank">Sign up</a>
+                     </li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
-<!-- 登录窗口 -->
-<div id="login" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-title">
-                <h1 class="text-center">登录</h1>
-            </div>
-            <div class="modal-body">
-                <form class="form-group" action="">
-                    <div class="form-group">
-                        <label for="">用户名</label>
-                        <input class="form-control" type="text" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="">密码</label>
-                        <input class="form-control" type="password" placeholder="">
-                    </div>
-                    <div class="text-right">
-                        <button class="btn btn-primary" type="submit">登录</button>
-                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
-                    </div>
-                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#register">还没有账号？点我注册</a>
-                </form>
-            </div>
-        </div>
+    <div>
+        <button type="button" id="testButton">登陆</button>
     </div>
-</div>
-
 </body>
 </html>

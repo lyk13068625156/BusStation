@@ -25,7 +25,14 @@ public class UserController  extends BaseController{
         System.out.println(searchStatus);
         //在controller这里把(pageNumber,pageSize)---->(startIndex,pageSize)，以适应数据库sql语句
         //int startIndex = (pageNumber-1) * pageSize;
-
         return userService.getAllUser(pageNumber,pageSize,searchID,searchName,searchStatus);
+    }
+
+    @RequestMapping(path="/addUser.do", produces="application/json;charset=utf-8")
+    @ResponseBody
+    PageModel addUser(){
+        System.out.println("addUserController!");
+        PageModel pageModel = new PageModel();
+        return pageModel;
     }
 }

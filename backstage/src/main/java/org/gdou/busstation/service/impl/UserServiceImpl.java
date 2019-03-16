@@ -36,4 +36,11 @@ public class UserServiceImpl implements IUserService {
 
         return pageModel;
     }
+
+    @Override
+    public User findUser(String userID, String password) {
+
+        return userMapper.findUser(userID,password);
+    }
+
 }
