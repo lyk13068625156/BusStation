@@ -35,4 +35,9 @@ public interface UserMapper {
             "</script>"})
     @ResultType(User.class)
     List<User> getAllUser(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize,@Param("searchID")  String searchID,@Param("searchName") String searchName,@Param("searchStatus") String searchStatus);
+
+    @Select("select * from user where account = #{userID} and password = #{password}")
+    User findUser(String userID, String password);
+
+
 }
