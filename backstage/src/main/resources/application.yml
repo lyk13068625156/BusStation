@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://cdb-5v933qgx.gz.tencentcdb.com:10076/BusStation?characterEncoding=utf8
+    username: root
+    password: root1234_
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    org:
+      gdou:
+        busstation:
+          mapper: debug
+
+#debug: true

@@ -7,6 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="backstage" />
+        <module name="busstation (1)" />
+        <module name="busstation (2)" />
         <module name="client" />
       </profile>
     </annotationProcessing>
@@ -14,6 +16,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="backstage" options="-parameters" />
+      <module name="busstation (1)" options="-parameters" />
+      <module name="busstation (2)" options="-parameters" />
       <module name="client" options="-parameters" />
     </option>
   </component>

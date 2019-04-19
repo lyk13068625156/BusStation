@@ -1,16 +1,15 @@
 package org.gdou.busstation.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultType;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.gdou.busstation.dto.GetUserRequestDto;
+import org.gdou.busstation.dto.UserDetailDto;
 import org.gdou.busstation.model.User;
-import org.springframework.stereotype.Repository;
+import org.gdou.busstation.tkMybatis.BaseMapper;
 
 import java.util.List;
 
-//@Mapper
-@Repository
-public interface UserMapper {
+@Mapper
+public interface UserMapper extends BaseMapper<User> {
 
     @Select("select count(*) from user")
     int count();
@@ -19,25 +18,10 @@ public interface UserMapper {
     @Select("SELECT found_rows() AS rowcount")
     int lastTimeCount();
 
+    //@SelectProvider(type = UserProvide.class, method = "getUserQuery")
+    List<UserDetailDto> getUser(GetUserRequestDto request);
 
-    @Select({"<script>"+
-            "select SQL_CALC_FOUND_ROWS * from user where 1=1 "+
-            "<if test='searchID!=\"\" and searchID!=null'>"+
-            " and id like CONCAT(CONCAT('%', #{searchID}),'%') "+
-            "</if>"+
-            "<if test='searchName!=\"\" and searchName!=null'>"+
-            " and name like CONCAT(CONCAT('%', #{searchName}),'%') "+
-            "</if>"+
-            "<if test='searchStatus!=\"\" and searchStatus!=null'>"+
-            " and status = #{searchStatus} "+
-            "</if>"+
-            " order by id asc limit #{startIndex}, #{pageSize} " +
-            "</script>"})
-    @ResultType(User.class)
-    List<User> getAllUser(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize,@Param("searchID")  String searchID,@Param("searchName") String searchName,@Param("searchStatus") String searchStatus);
-
-    @Select("select * from user where account = #{userID} and password = #{password}")
-    User findUser(String userID, String password);
-
+    //@SelectProvider(type = UserProvide.class, method = "getUserCountQuery")
+    Integer getUserCount(GetUserRequestDto requestDto);
 
 }

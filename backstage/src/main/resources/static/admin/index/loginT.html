@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>后台登录</title>
+		<link rel="stylesheet" type="text/css" href="../../static/admin/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/admin/css/login.css" />
+		<script src="../../static/admin/jquery/jquery.js"></script>
+		<script src="../../static/admin/jquery/jquery-form.js"></script>
+
+	</head>
+
+	<body>
+		<div class="m-login-bg">
+			<div class="m-login">
+				<h3>后台系统登录</h3>
+				<div class="m-login-warp">
+					<!--method="post" action="/sys/login"-->
+					<form class="layui-form">
+						<div class="layui-form-item">
+							<input type="text" name="userName" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-item">
+							<input type="text" name="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-item m-login-btn">
+							<div class="layui-inline">
+								<!-- lay-submit lay-filter="login"-->
+								<button class="layui-btn layui-btn-normal" type="submit" id="login">登录</button>
+							</div>
+							<div class="layui-inline">
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!--<div>-->
+					<!--<button id="loginBtn">测试登陆</button>-->
+				<!--</div>-->
+				<p class="copyright">汽车站 后台管理</p>
+			</div>
+		</div>
+		<script src="../../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			$("#login").on("click",function () {
+				$("#form").on("submit",function () {
+                    var userName = $('inpur[name=userName]').val(),
+                        password = $('input[name=password]').val();
+                    $("#this").ajaxSubmit({
+						type: "post",
+						url: "/sys/login",
+                        dateTyper: "json",
+						data:{
+						    userName: userName,
+							password: password
+						},
+                        success: function (response) {
+                            alert("ajaxSubmit success" + response.message)
+                        },
+                        error: function (response) {
+                            alert("ajaxSubmit error" + response.message)
+                        }
+                    })
+                })
+            })
+
+
+
+			// 监听提交
+			// form.on('submit(login)', function(data) {
+			//
+			// 	var param = date.field
+
+
+
+				// $.ajax(
+				//     {
+				//         url: "/sys/login",
+				//         type: "POST",
+				//         dataType: "json",
+				//         // data: {userName:"testRegisterUserName",password:"testRegisterPassword"},
+				// 		// date: dateValue,
+				// 		data: param.serializeJSON(),
+				//         success: function (response) {
+				//             if(response.code == 0){
+				//                 self.location.href = "index.html"
+				//             }else {
+				//                 layer.open({
+				//                     title: '提示'
+				//                     ,content: response.message
+				//                 });
+				//             }
+				//         },
+				//         error: function (response) {
+				//             layer.open({
+				//                 title: '提示'
+				//                 ,content: "系统请求失败"
+				//             });
+				//         }
+				//     });
+			// 	return false;
+			// });
+		</script>
+	</body>
+
+</html>
