@@ -1,0 +1,223 @@
+swagger: "2.0"
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  description: 派加V5_平台模块_接口文档
+  version: 0.0.1
+  title: 派加V5接口文档
+host: 172.18.8.6:8081
+schemes:
+- http
+- https
+basePath: /
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /admin/busstation/register:
+    post:
+      operationId: register
+      tags:
+      - '[后台]用户注册'
+      summary: 用户注册
+      parameters:
+      - name: register_input
+        in: body
+        description: 注册信息，登录名，密码
+        schema:
+          $ref: '#/definitions/register_input'
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+  /admin/busstation/login:
+    post:
+      operationId: login
+      tags: 
+      - '[后台]用户登陆'
+      summary: 用户登陆
+      parameters:
+      - name: login_input
+        in: body
+        description: 登陆信息，登录名，密码
+        schema:
+          $ref: '#/definitions/login_input'
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+  /admin/busstation/reset:
+    post:
+      operationId: reset
+      tags: 
+      - '[后台]用户重置密码'
+      summary: 用户重置密码
+      parameters:
+      - name: reset_input
+        in: body
+        description: 重置密码信息，登录名，旧密码，新密码
+        schema:
+          $ref: '#/definitions/reset_input'
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+  # /admin/busstation/logout:
+  #   get:
+  #     operationId: logout
+  #     tags: 
+  #     - '[后台]用户退出'
+  #     summary: 用户退出
+  #     parameters:
+  #     - name: user_name
+  #       type: string
+  #       description: 用户名
+  #       in: paths
+  #     responses:
+  #       200:
+  #         description: ok
+  #         schema:
+  #           $ref: '#/definitions/common_response'
+  /admin/busstation/user:
+    get:
+      operationId: get_user
+      tags:
+      - '[后台]获取车次信息'
+      summary: 获取车次信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 用户id（数据库主键）
+      - name: user_name
+        in: query
+        required: false
+        type: string
+        description: 用户名（登录名）
+      - name: phone
+        in: query
+        required: false
+        type: string
+        description: 用户手机号
+      - name: type
+        in: query
+        required: false
+        type: integer
+        description: 权限：1:管理员，2:普通用户
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态：1:启用，2:禁用（注册完默认是2禁用）
+      - name: limit
+        in: query
+        description: 每页数量
+        type: integer
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        description: 偏移量
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/get_user_response'
+################################################################################
+#                         definitions
+################################################################################
+definitions:
+  common_response:
+    description: 通用应答结构
+    type: object
+    properties:
+      code:
+        type: integer
+        description: 响应码，0为成功，1为失败
+      success:
+        type: boolean
+        description: 是否成功
+  register_input:
+    type: object
+    properties:
+      user_name:
+        type: string
+        description: 用户名
+      password:
+        type: string
+        description: 密码
+  login_input:
+    type: object
+    properties:
+      user_name:
+        type: string
+        description: 用户名
+      password:
+        type: string
+        description: 密码
+  reset_input:
+    type: object
+    properties:
+      user_name:
+        type: string
+        description: 用户名
+      old_password:
+        type: string
+        description: 旧密码
+      new_password: 
+        type: string
+        description: 新密码
+  # 后台user模块
+  get_user_response:
+    allOf:
+    - $ref: '#/definitions/common_response'
+    - type: object
+      properties:
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/user_detail'
+  user_detail:
+    type: object
+    properties:
+      id: 
+        type: integer
+        description: 用户id（数据库主键）
+      user_name:
+        type: string
+        description: 用户名
+      name: 
+        type: string
+        description: 真是姓名
+      id_card: 
+        type: string
+        description: 身份证号码
+      sex: 
+        type: integer
+        desc: 性别：1男，2女
+      phone:
+        type: string
+        description: 手机号码
+      email: 
+        type: string
+        description: 邮箱
+      type:
+        type: integer
+        description: 权限，1:管理员，2:普通用户
+      status: 
+        type: integer
+        description: 状态，1:启用，2:禁用（普通用户注册完默认是1启用，管理员注册完默认是2禁用）
+      create_time: 
+        type: string
+        description: 创建时间（注册时间）
