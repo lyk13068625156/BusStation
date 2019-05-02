@@ -3,10 +3,10 @@ swagger: "2.0"
 #                              API Information                                 #
 ################################################################################
 info:
-  description: 派加V5_平台模块_接口文档
+  description: 汽车站_后台模块_接口文档
   version: 0.0.1
-  title: 派加V5接口文档
-host: 172.18.8.6:8081
+  title: 汽车站后台模块接口文档
+host: localhost:8081
 schemes:
 - http
 - https
@@ -16,6 +16,9 @@ consumes:
 produces:
 - application/json
 paths:
+################################################################################
+#                                  系统模块                                    #
+################################################################################
   /admin/busstation/register:
     post:
       operationId: register
@@ -67,28 +70,67 @@ paths:
           description: ok
           schema:
             $ref: '#/definitions/common_response'
-  # /admin/busstation/logout:
-  #   get:
-  #     operationId: logout
-  #     tags: 
-  #     - '[后台]用户退出'
-  #     summary: 用户退出
-  #     parameters:
-  #     - name: user_name
-  #       type: string
-  #       description: 用户名
-  #       in: paths
-  #     responses:
-  #       200:
-  #         description: ok
-  #         schema:
-  #           $ref: '#/definitions/common_response'
-  /admin/busstation/user:
+  /admin/busstation/logout:
     get:
+      operationId: logout
+      tags: 
+      - '[后台]用户退出'
+      summary: 用户退出
+      parameters:
+      - name: user_name
+        type: string
+        description: 用户名
+        in: path
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+  /admin/busstation/get_my_info:
+    get:
+      operationId: get_my_info
+      tags:
+      - '[后台]获取个人信息'
+      summary: 获取个人信息
+      parameters:
+      - name: user_name
+        in: paths
+        required: true
+        description: 当前用户名
+        type: string
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/get_my_info_response'
+  /admin/busstation/update_my_info:
+    post:
+      operationId: update_my_info
+      tags:
+      - '[后台]更新个人信息'
+      summary: 更新个人信息
+      parameters:
+      - name: update_my_info_input
+        in: body
+        required: true
+        description: 更新个人信息输入
+        schema:
+          $ref: '#/definitions/update_my_info_input'
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+
+################################################################################
+#                                   用户模块                                   #
+################################################################################
+  /admin/busstation/user:
+    post:
       operationId: get_user
       tags:
-      - '[后台]获取车次信息'
-      summary: 获取车次信息
+      - '[后台]获取用户'
+      summary: 获取用户
       parameters:
       - name: id
         in: query
@@ -100,6 +142,16 @@ paths:
         required: false
         type: string
         description: 用户名（登录名）
+      - name: name
+        in: query
+        required: false
+        type: string
+        description: 真实名字
+      - name: sex
+        in: query
+        required: false
+        type: integer
+        description: 性别，1:男，2:女，0:未知
       - name: phone
         in: query
         required: false
@@ -117,6 +169,7 @@ paths:
         description: 状态：1:启用，2:禁用（注册完默认是2禁用）
       - name: limit
         in: query
+        required: false
         description: 每页数量
         type: integer
       - name: offset
@@ -129,8 +182,277 @@ paths:
           description: ok
           schema:
             $ref: '#/definitions/get_user_response'
+  /admin/busstation/updateUser:
+    post:
+      operationId: update_user
+      tags:
+      - '[后台]更新用户信息'
+      summary: 更新用户信息
+      parameters:
+      - name: update_user_input
+        in: body
+        required: true
+        description: 更新个人信息输入
+        schema:
+          $ref: '#/definitions/update_user_input'
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
 ################################################################################
-#                         definitions
+#                              车站模块                                         #
+################################################################################   
+  /admin/busstation/station:
+    post:
+      operationId: get_station
+      tags:
+      - '[后台]获取车站信息'
+      summary: 获取车站信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 车站id（数据库主键）
+      - name: name
+        in: query
+        required: false
+        type: string
+        description: 车站名
+      - name: province_code
+        in: query
+        required: false
+        type: integer
+        description: 省编号
+      - name: province
+        in: query
+        required: false
+        type: string
+        description: 省名
+      - name: city_code
+        in: query
+        required: false
+        type: integer
+        description: 市编号
+      - name: city
+        in: query
+        required: false
+        type: string
+        description: 市名
+      - name: section_code
+        in: query
+        required: false
+        type: integer
+        description: 区编号
+      - name: section
+        in: query
+        description: 区名
+        type: string
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态，1-启用，2-禁用
+      - name: limit
+        in: query
+        description: 每页数量
+        type: integer
+        required: false
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        description: 偏移量
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/get_station_response'
+  /admin/busstation/save_station:
+    post:
+      operationId: save_station
+      tags:
+      - '[后台]保存车站信息'
+      summary: 保存车站信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 车站id（数据库主键）
+      - name: name
+        in: query
+        required: false
+        type: string
+        description: 车站名
+      - name: province_code
+        in: query
+        required: false
+        type: integer
+        description: 省编号
+      - name: province
+        in: query
+        required: false
+        type: string
+        description: 省名
+      - name: city_code
+        in: query
+        required: false
+        type: integer
+        description: 市编号
+      - name: city
+        in: query
+        required: false
+        type: string
+        description: 市名
+      - name: section_code
+        in: query
+        required: false
+        type: integer
+        description: 区编号
+      - name: section
+        in: query
+        description: 区名
+        type: string
+      - name: address
+        in: query
+        description: 详细地址
+        register: false
+        type: string
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态，1-启用，2-禁用
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+################################################################################
+#                              车次模块                                         #
+################################################################################ 
+  /admin/busstation/list:
+    post:
+      operationId: get_list
+      tags:
+      - '[后台]获取车站信息'
+      summary: 获取车站信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 车次id（数据库主键）
+      - name: first_station_name
+        in: query
+        required: false
+        type: string 
+        description: 始发站车站名
+      - name: last_station_name
+        in: query
+        required: false
+        type: string 
+        description: 终点站车站名
+      - name: via
+        in: query
+        required: false
+        type: string 
+        description: 途经站名
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态，1-启用，2-禁用
+      - name: limit
+        in: query
+        description: 每页数量
+        type: integer
+        required: false
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        description: 偏移量
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/get_list_response'
+  /admin/busstation/save_list:
+    post:
+      operationId: save_list
+      tags:
+      - '[后台]保存车次信息'
+      summary: 保存车次信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 车次id（数据库主键）
+      - name: first_station
+        required: true
+        description: 始发站id
+      - name: first_station_name
+        in: query
+        required: false
+        type: string 
+        description: 始发站车站名
+      - name: leave_time
+        in: query
+        description: 出发时间
+        type: integer
+        format: int64
+        required: true
+      - name: last_station
+        in: query
+        description: 终点站id
+        type: integer
+        required: true
+      - name: last_station_name
+        in: query
+        required: false
+        type: string 
+        description: 终点站车站名
+      - name: arrive_time
+        required: true
+        type: integer
+        format: int64
+        in: query
+      - name: via
+        in: query
+        required: false
+        type: string 
+        description: 途经站名
+      - name: seat
+        in: query
+        description: 座位数
+        type: integer
+        required: true
+      - name: price
+        in: query
+        description: 价钱
+        type: string
+        required: true
+      - name: distance
+        in: query
+        description: 距离
+        type: integer
+        required: true
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态，1-启用，2-禁用
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+################################################################################
+#                         通用response                                         #
 ################################################################################
 definitions:
   common_response:
@@ -143,6 +465,9 @@ definitions:
       success:
         type: boolean
         description: 是否成功
+################################################################################
+#                             系统模块                                         #
+################################################################################
   register_input:
     type: object
     properties:
@@ -173,6 +498,64 @@ definitions:
       new_password: 
         type: string
         description: 新密码
+  get_my_info_response:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 个人id
+      user_name:
+        type: string
+        description: 用户名
+      name: 
+        type: string
+        description: 真是姓名
+      id_card: 
+        type: string
+        description: 身份证号码
+      sex: 
+        type: integer
+        description: 性别，1-男，2-女，0-未知
+      phone: 
+        type: string
+        description: 手机号码
+      email: 
+        type: string
+        description: 邮箱
+      type: 
+        type: integer
+        description: 权限，1-管理员，2-普通用户
+      status:
+        type: integer
+        description: 状态，1-启用，2-禁用（普通用户注册完默认是启用，管理员注册完默认是2禁用）
+      create_time: 
+        type: integer
+        format: int64
+        description: 注册时间
+  update_my_info_input:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 个人id
+      name: 
+        type: string
+        description: 真是姓名
+      id_card: 
+        type: string
+        description: 身份证号码
+      sex: 
+        type: integer
+        description: 性别，1-男，2-女，0-未知
+      phone: 
+        type: string
+        description: 手机号码
+      email: 
+        type: string
+        description: 邮箱
+################################################################################
+#                                所有用户信息                                  #
+################################################################################
   # 后台user模块
   get_user_response:
     allOf:
@@ -205,7 +588,7 @@ definitions:
         description: 身份证号码
       sex: 
         type: integer
-        desc: 性别：1男，2女
+        desc: 性别：1男，2女，0未知
       phone:
         type: string
         description: 手机号码
@@ -221,3 +604,146 @@ definitions:
       create_time: 
         type: string
         description: 创建时间（注册时间）
+  update_user_input:
+    type: object
+    properties:
+      id: 
+        type: integer
+        description: 用户id
+      name: 
+        type: string
+        description: 真实名字
+      id_card: 
+        type: string
+        description: 身份证号
+      sex: 
+        type: string
+        description: 性别，1-男，2-女，0-未知
+      phone: 
+        type: string
+        description: 手机号码
+      email:
+        type: string
+        description: 邮箱
+      status:
+        type: integer
+        description: 状态，1-启用，2-禁用（普通用户注册完默认是启用，管理员注册完默认是2禁用）
+################################################################################
+#                                    车站编辑                                   #
+################################################################################
+  get_station_response:
+    allOf:
+    - $ref: '#/definitions/common_response'
+    - type: object
+      properties:
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/station_detail'
+  station_detail:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 车站id（数据库主键）
+      name:
+        type: string
+        description: 车站名
+      province_code:
+        type: integer
+        description: 省编号
+      province:
+        type: string
+        description: 省名
+      city_code:
+        type: integer
+        description: 市编号
+      city:
+        type: string
+        description: 市名
+      section_code:
+        type: integer
+        description: 区编号
+      section:
+        type: string
+        description: 区名
+      address:
+        type: string
+        description: 详细地址
+      status:
+        type: integer
+        description: 状态，1-启用，2-禁用
+      create_time:
+        type: string
+        description: 创建时间
+################################################################################
+#                                    车站编辑                                   #
+################################################################################
+  get_list_response:
+    allOf:
+    - $ref: '#/definitions/common_response'
+    - type: object
+      properties:
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/list_detail'
+  list_detail:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 车次id（数据库主键）
+      first_station:
+        type: integer
+        description: 始发站id
+      first_station_name:
+        type: string
+        description: 始发站名
+      leave_time:
+        type: integer
+        format: int64
+        description: 出发时间
+      last_station:
+        type: integer
+        description: 终点站id
+      last_station_name:
+        type: string
+        description: 终点站名
+      arrive_time:
+        type: integer
+        format: int64
+        description: 到站时间
+      via:
+        type: string
+        description: 途经站
+      seat:
+        type: integer
+        description: 座位数
+      price:
+        type: string
+        description: 价钱
+      distance:
+        type: integer
+        description: 距离
+      status:
+        type: integer
+        description: 状态，1-启用，2-禁用
+      create_time: 
+        type: integer
+        format: int64
+        description: 创建时间
+
+
+
+      

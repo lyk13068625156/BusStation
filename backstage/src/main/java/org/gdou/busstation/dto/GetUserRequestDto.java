@@ -4,35 +4,24 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
+
+
+
+
 
 public class GetUserRequestDto implements Serializable {
 
-  private Integer offset = null;
   private String phone = null;
   private String userName = null;
+  private Integer sex = null;
+  private String name = null;
   private Integer limit = null;
   private Integer id = null;
+  private Integer offset = null;
   private Integer type = null;
   private Integer status = null;
-
-
-  /**
-   **/
-  public GetUserRequestDto offset(Integer offset) {
-    this.offset = offset;
-    return this;
-  }
-
-
-  @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("offset")
-  public Integer getOffset() {
-    return offset;
-  }
-  public void setOffset(Integer offset) {
-    this.offset = offset;
-  }
 
 
   /**
@@ -73,6 +62,42 @@ public class GetUserRequestDto implements Serializable {
 
   /**
    **/
+  public GetUserRequestDto sex(Integer sex) {
+    this.sex = sex;
+    return this;
+  }
+
+
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("sex")
+  public Integer getSex() {
+    return sex;
+  }
+  public void setSex(Integer sex) {
+    this.sex = sex;
+  }
+
+
+  /**
+   **/
+  public GetUserRequestDto name(String name) {
+    this.name = name;
+    return this;
+  }
+
+
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("name")
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  /**
+   **/
   public GetUserRequestDto limit(Integer limit) {
     this.limit = limit;
     return this;
@@ -104,6 +129,24 @@ public class GetUserRequestDto implements Serializable {
   }
   public void setId(Integer id) {
     this.id = id;
+  }
+
+
+  /**
+   **/
+  public GetUserRequestDto offset(Integer offset) {
+    this.offset = offset;
+    return this;
+  }
+
+
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("offset")
+  public Integer getOffset() {
+    return offset;
+  }
+  public void setOffset(Integer offset) {
+    this.offset = offset;
   }
 
 
@@ -153,18 +196,20 @@ public class GetUserRequestDto implements Serializable {
       return false;
     }
     GetUserRequestDto getUserRequest = (GetUserRequestDto) o;
-    return Objects.equals(offset, getUserRequest.offset) &&
-            Objects.equals(phone, getUserRequest.phone) &&
+    return Objects.equals(phone, getUserRequest.phone) &&
             Objects.equals(userName, getUserRequest.userName) &&
+            Objects.equals(sex, getUserRequest.sex) &&
+            Objects.equals(name, getUserRequest.name) &&
             Objects.equals(limit, getUserRequest.limit) &&
             Objects.equals(id, getUserRequest.id) &&
+            Objects.equals(offset, getUserRequest.offset) &&
             Objects.equals(type, getUserRequest.type) &&
             Objects.equals(status, getUserRequest.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(offset, phone, userName, limit, id, type, status);
+    return Objects.hash(phone, userName, sex, name, limit, id, offset, type, status);
   }
 
   @Override
@@ -172,11 +217,13 @@ public class GetUserRequestDto implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetUserRequestDto {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
     sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    sex: ").append(toIndentedString(sex)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");

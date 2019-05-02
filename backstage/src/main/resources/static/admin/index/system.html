@@ -189,7 +189,8 @@
 			//Demo
 			layui.use(['form', 'element'], function() {
 				var form = layui.form();
-				var element = layui.element();
+				// var element = layui.element();
+                var element = layui.element;
 				form.render();
 				//监听信息提交
 				form.on('submit(siteInfo)', function(data) {

@@ -18,4 +18,8 @@ public class BusStationContants {
     public static final int TIME_HALF_OF_HOUR = 60 * 60 / 2;
     public static final int TIME_FIVE_MINUTE = 60 * 5;
 
+    //  系统错误码
+    public static final int SYS_NOT_FOUND = 404;
+    public static final int SYS_USER_TYPE_ERROR = 50000;
+
 }

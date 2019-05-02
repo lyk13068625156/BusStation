@@ -18,7 +18,7 @@
 				<h3>后台系统注册</h3>
 				<div class="m-login-warp">
 					<!--action="/sys/login" method="post"-->
-					<form id="loginForm" class="layui-form">
+					<form id="registerForm" class="layui-form">
 						<div class="layui-form-item">
 							<input type="text" name="userName" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
 						</div>
@@ -37,6 +37,9 @@
 					<div class="layui-form-item" style="text-align: center">
 						<a href="login.html">已有账号？去登陆</a>
 					</div>
+					<div class="layui-form-item" style="text-align: center">
+						<a href="reset.html">忘记密码</a>
+					</div>
 				</div>
 				<p class="copyright">汽车站 后台管理</p>
 			</div>
@@ -49,10 +52,10 @@
                     type: "POST",//方法类型
                     dataType: "json",//预期服务器返回的数据类型
                     url: "/register" ,//url
-                    data: $('#loginForm').serialize(),
+                    data: $('#registerForm').serialize(),
                     success: function (response) {
-                        console.log(response);
                         if (response.code == 0) {
+                            alert("注册成功，马上登陆")
                             location.href = "login.html"
                         }else
                             alert(response.message);

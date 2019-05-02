@@ -4,7 +4,10 @@ import com.sun.xml.internal.bind.v2.TODO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.gdou.busstation.Util.BusStationContants;
+import org.gdou.busstation.Util.ObjectUtils;
+import org.gdou.busstation.Util.TimeUtils;
 import org.gdou.busstation.dto.*;
+import org.gdou.busstation.exception.ServiceException;
 import org.gdou.busstation.mapper.UserMapper;
 import org.gdou.busstation.model.User;
 import org.gdou.busstation.service.SysService;
@@ -14,8 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Field;
 import java.net.PasswordAuthentication;
 import java.net.ResponseCache;
+import java.nio.channels.ReadPendingException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -54,9 +60,6 @@ public class SysServiceImpl implements SysService {
     @Transactional
     @Override
     public CommonResponseDto login(LoginInputDto input) {
-        //LoginInputDto input = request.getLoginInput();
-        //TODO
-        System.out.println(input.toString());
         User user = new User();
         user.setUserName(input.getUserName() == null ? "" : input.getUserName());
         user.setPassword(input.getPassword() == null ? "" : input.getPassword());
@@ -78,8 +81,7 @@ public class SysServiceImpl implements SysService {
 
     @Transactional
     @Override
-    public CommonResponseDto reset(ResetRequestDto request) {
-        ResetInputDto input = request.getResetInput();
+    public CommonResponseDto reset(ResetInputDto input) {
         String userName = input.getUserName();
         String oldPassword = input.getOldPassword();
         String newPassword = input.getNewPassword();
@@ -95,9 +97,55 @@ public class SysServiceImpl implements SysService {
             if (i == 1){
                 response.code(0).success(true).message("重置成功");
             }else
-                response.code(1).success(false).message("重置失败1");
+                response.code(1).success(false).message("重置失败");
         }else
-            response.code(1).success(false).message("重置失败2");
+            response.code(1).success(false).message("重置失败");
         return response;
+    }
+
+    @Override
+    @Transactional
+    public GetMyInfoResponseDto getMyInfo(GetMyInfoRequestDto requestDto) {
+        GetMyInfoResponseDto responseDto = new GetMyInfoResponseDto();
+        String userName = requestDto.getUserName();
+        User user = new User();
+        user.setUserName(userName);
+        User foundUser = userMapper.selectOne(user);
+        if (foundUser == null){
+            responseDto.code(1).success(false).message("未找到userName = " + userName + " 的用户");
+        }else {
+//            ObjectUtils.copy(foundUser,responseDto);//把获取到的对象的值copy到外部dto
+            responseDto.code(0).success(true);
+            responseDto.setId(foundUser.getId());
+            responseDto.setUserName(foundUser.getUserName());
+            responseDto.setName(foundUser.getName());
+            responseDto.setIdCard(foundUser.getIdCard());
+            responseDto.setSex(foundUser.getSex());
+            responseDto.setPhone(foundUser.getPhone());
+            responseDto.setEmail(foundUser.getEmail());
+            responseDto.setType(foundUser.getType());
+            responseDto.setStatus(foundUser.getStatus());
+            responseDto.setCreateTime(foundUser.getCreateTime().getTime());
+        }
+        return responseDto;
+    }
+
+    @Override
+    @Transactional
+    public CommonResponseDto updateMyInfo(UpdateMyInfoInputDto inputDto){
+        User user = new User();
+        user.setId(inputDto.getId());
+        User foundUser = userMapper.selectByPrimaryKey(user);
+        if (foundUser == null)
+        {
+            throw new ServiceException(BusStationContants.SYS_NOT_FOUND,String.format("该用户不存在,id=%d",inputDto.getId()));
+        }
+        foundUser.setName(inputDto.getName());
+        foundUser.setIdCard(inputDto.getIdCard());
+        foundUser.setSex(inputDto.getSex());
+        foundUser.setPhone(inputDto.getPhone());
+        foundUser.setEmail(inputDto.getEmail());
+        userMapper.updateByPrimaryKeySelective(foundUser);
+        return new CommonResponseDto().code(0).success(true);
     }
 }

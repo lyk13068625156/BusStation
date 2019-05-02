@@ -6,29 +6,33 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.io.Serializable;
+
+
+
 
 public class GetUserResponseResultDto implements Serializable {
   
-  private Integer total = null;
+  private Integer count = null;
   private List<UserDetailDto> items = new ArrayList<UserDetailDto>();
 
   
   /**
    **/
-  public GetUserResponseResultDto total(Integer total) {
-    this.total = total;
+  public GetUserResponseResultDto count(Integer count) {
+    this.count = count;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("total")
-  public Integer getTotal() {
-    return total;
+  @JsonProperty("count")
+  public Integer getCount() {
+    return count;
   }
-  public void setTotal(Integer total) {
-    this.total = total;
+  public void setCount(Integer count) {
+    this.count = count;
   }
 
   
@@ -60,13 +64,13 @@ public class GetUserResponseResultDto implements Serializable {
       return false;
     }
     GetUserResponseResultDto getUserResponseResult = (GetUserResponseResultDto) o;
-    return Objects.equals(total, getUserResponseResult.total) &&
+    return Objects.equals(count, getUserResponseResult.count) &&
         Objects.equals(items, getUserResponseResult.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(total, items);
+    return Objects.hash(count, items);
   }
 
   @Override
@@ -74,7 +78,7 @@ public class GetUserResponseResultDto implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class GetUserResponseResultDto {\n");
     
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();

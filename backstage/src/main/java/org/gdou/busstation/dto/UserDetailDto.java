@@ -49,7 +49,7 @@ public class UserDetailDto implements Serializable {
 
   
   @ApiModelProperty(example = "null", value = "用户名")
-  @JsonProperty("user_name")
+  @JsonProperty("userName")
   public String getUserName() {
     return userName;
   }
@@ -87,7 +87,7 @@ public class UserDetailDto implements Serializable {
 
   
   @ApiModelProperty(example = "null", value = "身份证号码")
-  @JsonProperty("id_card")
+  @JsonProperty("idCard")
   public String getIdCard() {
     return idCard;
   }
@@ -200,7 +200,7 @@ public class UserDetailDto implements Serializable {
 
   
   @ApiModelProperty(example = "null", value = "创建时间（注册时间）")
-  @JsonProperty("create_time")
+  @JsonProperty("createTime")
   public String getCreateTime() {
     return createTime;
   }

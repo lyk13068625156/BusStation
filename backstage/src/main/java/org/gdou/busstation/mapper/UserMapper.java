@@ -3,6 +3,7 @@ package org.gdou.busstation.mapper;
 import org.apache.ibatis.annotations.*;
 import org.gdou.busstation.dto.GetUserRequestDto;
 import org.gdou.busstation.dto.UserDetailDto;
+import org.gdou.busstation.mapper.provide.UserProvider;
 import org.gdou.busstation.model.User;
 import org.gdou.busstation.tkMybatis.BaseMapper;
 
@@ -18,10 +19,10 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT found_rows() AS rowcount")
     int lastTimeCount();
 
-    //@SelectProvider(type = UserProvide.class, method = "getUserQuery")
+    @SelectProvider(type = UserProvider.class, method = "getUser")
     List<UserDetailDto> getUser(GetUserRequestDto request);
 
-    //@SelectProvider(type = UserProvide.class, method = "getUserCountQuery")
+    @SelectProvider(type = UserProvider.class, method = "getUserCount")
     Integer getUserCount(GetUserRequestDto requestDto);
 
 }

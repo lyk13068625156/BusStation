@@ -10,5 +10,9 @@ public interface SysService {
 
     public CommonResponseDto login(LoginInputDto request);
 
-    public CommonResponseDto reset(ResetRequestDto request);
+    public CommonResponseDto reset(ResetInputDto request);
+
+    public GetMyInfoResponseDto getMyInfo(GetMyInfoRequestDto requestDto);
+
+    public CommonResponseDto updateMyInfo(UpdateMyInfoInputDto inputDto);
 }

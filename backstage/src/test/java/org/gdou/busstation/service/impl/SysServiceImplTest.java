@@ -38,7 +38,6 @@ public class SysServiceImplTest {
 
     @Test
     public void reset() {
-        ResetRequestDto request = new ResetRequestDto();
         ResetInputDto input = new ResetInputDto();
         input.setUserName("二号");
         input.setOldPassword("二号");
@@ -46,7 +45,6 @@ public class SysServiceImplTest {
         //input.setUserName("testRegisterUserName");
         //input.setOldPassword("testRegisterPassword");
         //input.setNewPassword("testRegisterNewPassword");
-        request.setResetInput(input);
-        System.out.println(sysService.reset(request));
+        System.out.println(sysService.reset(input));
     }
 }

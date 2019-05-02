@@ -4,9 +4,14 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import java.io.Serializable;
 
-public class GetUserResponseDto implements Serializable {
+
+
+
+public class GetUserResponseDto extends CommonResponseDto implements Serializable {
   
   private Integer code = null;
   private Boolean success = null;
