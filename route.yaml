@@ -345,6 +345,11 @@ paths:
         required: false
         type: integer
         description: 车次id（数据库主键）
+      - name: name
+        in: query
+        required: false
+        description: 车次名称，如Z201
+        type: string
       - name: first_station_name
         in: query
         required: false
@@ -392,7 +397,13 @@ paths:
         required: false
         type: integer
         description: 车次id（数据库主键）
+      - name: name
+        in: query
+        required: false
+        description: 车次名称，如Z201
+        type: string
       - name: first_station
+        type: integer
         required: true
         description: 始发站id
       - name: first_station_name
@@ -440,6 +451,155 @@ paths:
         in: query
         description: 距离
         type: integer
+        required: true
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态，1-启用，2-禁用
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/common_response'
+
+
+################################################################################
+#                              航班模块                                         #
+################################################################################ 
+  /admin/busstation/schedule:
+    post:
+      operationId: get_schedule
+      tags:
+      - '[后台]获取航班信息'
+      summary: 获取航班信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 航班id（数据库主键）
+      - name: list_id
+        in: query
+        required: false
+        type: integer
+        description: 车次id（数据库主键）
+      - name: list_name
+        in: query
+        required: false
+        type: string
+        description: 车次名称，如Z201
+      - name: start_station_id
+        in: query
+        required: false
+        type: integer
+        description: 始发站id（数据库主键）
+      - name: start_station_name
+        in: query
+        required: false
+        type: integer
+        description: 始发站名字
+      - name: end_station_id
+        in: query
+        required: false
+        type: integer
+        description: 始发站id（数据库主键）
+      - name: end_station_name
+        in: query
+        required: false
+        type: integer
+        description: 始发站名字
+      - name: day
+        in: query
+        required: false
+        type: string 
+        description: 出发日期
+      - name: status
+        in: query
+        required: false
+        type: integer
+        description: 状态，1-启用，2-禁用
+      - name: limit
+        in: query
+        description: 每页数量
+        type: integer
+        required: false
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        description: 偏移量
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: '#/definitions/get_list_response'
+  /admin/busstation/saveSchedule:
+    post:
+      operationId: save_schedule
+      tags:
+      - '[后台]保存航班信息'
+      summary: 保存航班信息
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: integer
+        description: 航班id（数据库主键）
+      - name: list_id
+        in: query
+        required: false
+        type: integer
+        description: 车次id
+      - name: list_name
+        in: query
+        required: false
+        type: string
+        description: 车次名称
+      - name: this_station_id
+        in: query
+        required: false
+        type: integer
+        description: 出发站id
+      - name: this_station_name
+        in: query
+        required: false
+        type: string
+        description: 出发站名称
+      - name: day
+        in: query
+        required: false
+        type: string
+        description: 日期
+      - name: leave_time
+        in: query
+        required: false
+        type: integer
+        description: 出发时间
+      - name: seat
+        type: integer
+        required: true
+        description: 座位数
+      - name: next_station_id
+        in: query
+        required: false
+        type: integer
+        description: 下一站id
+      - name: next_station_name
+        in: query
+        required: false
+        type: string
+        description: 下一站名称
+      - name: distance
+        in: query
+        description: 距离
+        type: integer
+        format: int64
+        required: true
+      - name: price
+        in: query
+        description: 价钱
+        type: string
         required: true
       - name: status
         in: query
