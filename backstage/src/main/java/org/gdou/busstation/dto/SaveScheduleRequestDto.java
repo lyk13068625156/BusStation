@@ -1,5 +1,6 @@
 package org.gdou.busstation.dto;
 
+import java.util.Date;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -12,24 +13,24 @@ import java.io.Serializable;
 
 public class SaveScheduleRequestDto implements Serializable {
   
-  private Integer leaveTime = null;
+  private Date leaveTime = null;
   private Integer nextStationId = null;
   private Integer listId = null;
   private Integer distance = null;
   private String thisStationName = null;
   private String listName = null;
   private Integer seat = null;
-  private String price = null;
+  private Double price = null;
   private Integer thisStationId = null;
   private Integer id = null;
   private String nextStationName = null;
-  private String day = null;
+  private Date day = null;
   private Integer status = null;
 
   
   /**
    **/
-  public SaveScheduleRequestDto leaveTime(Integer leaveTime) {
+  public SaveScheduleRequestDto leaveTime(Date leaveTime) {
     this.leaveTime = leaveTime;
     return this;
   }
@@ -37,10 +38,10 @@ public class SaveScheduleRequestDto implements Serializable {
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("leave_time")
-  public Integer getLeaveTime() {
+  public Date getLeaveTime() {
     return leaveTime;
   }
-  public void setLeaveTime(Integer leaveTime) {
+  public void setLeaveTime(Date leaveTime) {
     this.leaveTime = leaveTime;
   }
 
@@ -155,7 +156,7 @@ public class SaveScheduleRequestDto implements Serializable {
   
   /**
    **/
-  public SaveScheduleRequestDto price(String price) {
+  public SaveScheduleRequestDto price(Double price) {
     this.price = price;
     return this;
   }
@@ -163,10 +164,10 @@ public class SaveScheduleRequestDto implements Serializable {
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("price")
-  public String getPrice() {
+  public Double getPrice() {
     return price;
   }
-  public void setPrice(String price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 
@@ -227,7 +228,7 @@ public class SaveScheduleRequestDto implements Serializable {
   
   /**
    **/
-  public SaveScheduleRequestDto day(String day) {
+  public SaveScheduleRequestDto day(Date day) {
     this.day = day;
     return this;
   }
@@ -235,10 +236,10 @@ public class SaveScheduleRequestDto implements Serializable {
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("day")
-  public String getDay() {
+  public Date getDay() {
     return day;
   }
-  public void setDay(String day) {
+  public void setDay(Date day) {
     this.day = day;
   }
 

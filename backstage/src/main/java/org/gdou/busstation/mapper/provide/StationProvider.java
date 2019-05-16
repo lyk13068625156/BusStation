@@ -18,14 +18,14 @@ public class StationProvider {
            if (requestDto.getName() != null && StringUtils.isNotBlank(requestDto.getName())){
                WHERE("name like CONCAT('%', #{name}, '%')");
            }
-           if (requestDto.getProvinceCode() != null && StringUtils.isNotBlank(requestDto.getProvinceCode().toString())){
-               WHERE("province_code = #{provinceCode}");
+           if (requestDto.getProvinceId() != null && StringUtils.isNotBlank(requestDto.getProvinceId().toString())){
+               WHERE("province_id = #{provinceId}");
            }
-           if (requestDto.getCityCode() != null && StringUtils.isNotBlank(requestDto.getCityCode().toString())){
-                WHERE("city_code = #{cityCode}");
+           if (requestDto.getCityId() != null && StringUtils.isNotBlank(requestDto.getCityId().toString())){
+                WHERE("city_id = #{cityId}");
            }
-           if (requestDto.getSectionCode() != null && StringUtils.isNotBlank(requestDto.getSectionCode().toString())){
-                WHERE("section_code = #{sectionCode}");
+           if (requestDto.getSectionId() != null && StringUtils.isNotBlank(requestDto.getSectionId().toString())){
+                WHERE("section_id = #{sectionId}");
            }
            if (requestDto.getProvince() != null && StringUtils.isNotBlank(requestDto.getProvince())){
                 WHERE("province like CONCAT('%', #{province}, '%')");
@@ -57,14 +57,14 @@ public class StationProvider {
             if (requestDto.getName() != null && StringUtils.isNotBlank(requestDto.getName())){
                 WHERE("name like CONCAT('%', #{name}, '%')");
             }
-            if (requestDto.getProvinceCode() != null && StringUtils.isNotBlank(requestDto.getProvinceCode().toString())){
-                WHERE("province_code = #{provinceCode}");
+            if (requestDto.getProvinceId() != null && StringUtils.isNotBlank(requestDto.getProvinceId().toString())){
+                WHERE("province_id = #{provinceId}");
             }
-            if (requestDto.getCityCode() != null && StringUtils.isNotBlank(requestDto.getCityCode().toString())){
-                WHERE("city_code = #{cityCode}");
+            if (requestDto.getCityId() != null && StringUtils.isNotBlank(requestDto.getCityId().toString())){
+                WHERE("city_id = #{cityId}");
             }
-            if (requestDto.getSectionCode() != null && StringUtils.isNotBlank(requestDto.getSectionCode().toString())){
-                WHERE("section_code = #{sectionCode}");
+            if (requestDto.getSectionId() != null && StringUtils.isNotBlank(requestDto.getSectionId().toString())){
+                WHERE("section_id = #{sectionId}");
             }
             if (requestDto.getProvince() != null && StringUtils.isNotBlank(requestDto.getProvince())){
                 WHERE("province like CONCAT('%', #{province}, '%')");

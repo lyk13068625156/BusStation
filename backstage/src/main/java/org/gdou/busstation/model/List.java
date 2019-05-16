@@ -18,17 +18,11 @@ public class List implements Serializable {
     @Column(name = "first_station")
     private Integer firstStation;
 
-    @Column(name = "first_station_name")
-    private String firstStationName;
-
     @Column(name = "leave_time")
     private Date leaveTime;
 
     @Column(name = "last_station")
     private Integer lastStation;
-
-    @Column(name = "last_station_name")
-    private String lastStationName;
 
     @Column(name = "arrive_time")
     private Date arriveTime;

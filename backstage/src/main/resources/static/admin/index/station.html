@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>网站后台管理模版</title>
+	<!--<link rel="stylesheet" type="text/css" href="../../static/admin/layui/css/layui.css" />-->
+	<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
+	<script src="../../static/admin/jquery/jquery.js"></script>
+	<script src="../../static/admin/jquery/jquery-form.js"></script>
+	<script src="../../static/admin/jquery/jquery.cookie.js"></script>
+	<script src="../../static/admin/js/formatTime.js"></script>
+	<!--<script src="../../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>-->
+	<!--<link rel="stylesheet" type="text/css" href="../../static/admin/layui/css/layui.css"/>-->
+	<!---->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../static/admin/js/bootstrap/bootstrap-table.css">
+	<link rel="stylesheet" href="../../static/admin/js/bootstrap/bootstrap-table.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!--<script src="../js/bootstrap-table.js"></script>-->
+	<script src="../../static/admin/js/bootstrap/bootstrap-table.min.js"></script>
+	<script src="../../static/admin/js/bootstrap/bootstrap-table-locale-all.js"></script>
+	<script src="../../static/admin/js/bootstrap/bootstrap-table-locale-all.min.js"></script>
+	<script src="../../static/admin/js/bootstrap/bootstrap-table-toolbar.js"></script>
+	<script src="../../static/admin/js/bootstrap/bootstrap-table-toolbar.min.js"></script>
+	<script src="../../static/admin/js/bootstrap/bootstrap-table-export.js"></script>
+	<script src="../../static/admin/js/bootstrap/bootstrap-table-zh-CN.js"></script>
+	<!--<script src="../../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>-->
+</head>
+<body>
+<!--<div>-->
+	<!--<form class="form-inline" id="searchForm" style="text-align:left;">-->
+		<!--<div class="form-group" style="padding-bottom: 8px;">-->
+			<!--<div class="col-md-12">-->
+				<!--<label class="form-inline" />id：-->
+				<!--<input class="form-control" name="id" type="text"/>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="form-group" style="padding-bottom: 8px;">-->
+			<!--<div class="col-md-12">-->
+				<!--<label class="form-inline" />站名：-->
+				<!--<input class="form-control" name="name" type="text"/>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="form-group" style="padding-bottom: 18px;">-->
+			<!--<div class="col-md-12">-->
+				<!--<label class="form-inline" />状态：-->
+				<!--<select class="form-control" name="Province" id="status">-->
+					<!--<option>请选择</option>-->
+					<!--<option value="1">启用</option>-->
+					<!--<option value="2">禁用</option>-->
+				<!--</select>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="form-group col-sm-2">-->
+			<!--<label class="form-inline" />省：-->
+			<!--<select class="form-control" name="Province" id="Province">-->
+				<!--<option>请选择</option>-->
+			<!--</select>-->
+		<!--</div>-->
+		<!--<div class="form-group col-sm-2">-->
+			<!--<label class="form-inline" />市：-->
+			<!--<select class="form-control" name="City" id="City">-->
+				<!--<option>请选择</option>-->
+			<!--</select>-->
+		<!--</div>-->
+		<!--<div class="form-group col-sm-2">-->
+			<!--<label class="form-inline" />区/县：-->
+			<!--<select class="form-control" name="Section" id="Section">-->
+				<!--<option>请选择</option>-->
+			<!--</select>-->
+		<!--</div>-->
+		<!--<div class="btn-group" role="group" aria-label="...">-->
+			<!--<button type="button" class="btn btn-default" onclick="">搜索</button>-->
+			<!--<button type="reset" class="btn btn-default">清空</button>-->
+		<!--</div>-->
+	<!--</form>-->
+<!--</div>-->
+<div class="layui-form" id="table-list">
+	<table id="table"></table>
+</div>
+<!--模态框 -->
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<!-- 模态框头部 -->
+			<div class="modal-header">
+				<h4 class="modal-title">站点信息</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- 模态框主体 -->
+			<div class="modal-body">
+				<form class="form-inline" id="stationInfo">
+					<div class="form-group" style="padding-bottom: 8px;">
+						<div class="col-md-12">
+							<label class="form-inline" />id：
+							<input class="form-control" name="id" type="text" readonly/>
+						</div>
+					</div>
+					<div class="form-group" style="padding-bottom: 8px;">
+						<div class="col-md-12">
+							<label class="form-inline" />站名：
+							<input class="form-control" name="name" type="text"/>
+						</div>
+					</div>
+					<div class="form-group col-sm-2">
+						<label class="form-inline" />省：
+						<select class="form-control" name="provinceId" id="provinceId">
+							<option>请选择</option>
+						</select>
+					</div>
+					<div class="form-group col-sm-2">
+						<label class="form-inline" />市：
+						<select class="form-control" name="cityId" id="cityId">
+							<option>请选择</option>
+						</select>
+					</div>
+					<div class="form-group col-sm-2">
+						<label class="form-inline" />区/县：
+						<select class="form-control" name="sectionId" id="sectionId">
+							<option>请选择</option>
+						</select>
+					</div>
+					<div class="form-group" style="padding-bottom: 8px;">
+						<div class="col-md-12">
+							<label class="form-inline" />详细地址:
+							<input class="form-control" name="address" type="text"/>
+						</div>
+					</div>
+					<div class="form-group" style="padding-bottom: 18px;">
+						<div class="col-md-12">
+							<label class="form-inline" />状态：
+							<input type="radio" name="status" value="1">启用</input>
+							<input type="radio" name="status" value="2">禁用</input>
+						</div>
+					</div>
+					<div class="form-group" style="padding-bottom: 18px;">
+						<div class="col-md-12">
+							<label class="form-inline" />创建时间：
+							<input class="form-control" name="createTime" type="text" disabled/>
+						</div>
+					</div>
+					<div class="col-lg-12" style="margin-bottom: 8px">
+						<input class="btn btn-primary btn-block" type="button" onclick="saveStation()" value="提交"/>
+					</div>
+				</form>
+			</div>
+			<!-- 模态框底部 -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //调用函数，初始化表格
+        initTable();
+        //当点击查询按钮的时候执行,bootstrap-table前端分页是不能使用搜索功能，所以可以提取出来自定义搜索。后台代码，在后面给出
+        $("#searchBtn").bind("click", initTable);
+    });
+    function initTable() {
+        //先销毁表格
+        $('#table').bootstrapTable('destroy');
+        $('#table').bootstrapTable({
+            url: "/station", // 获取表格数据的url
+            method: 'post',
+            cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
+            striped: true,  //表格显示条纹，默认为false
+            pagination: true, // 在表格底部显示分页组件，默认false
+            pageList: [5, 10, 20, 50, 100], // 设置页面可以显示的数据条数
+            pageSize: 10, // 页面数据条数
+            pageNumber: 1, // 首页页码
+            sidePagination: 'server', // 设置为服务器端分页
+            showColumns: false,                  //是否显示所有的列
+            minimumCountColumns: 1,             //最少允许的列数
+            //clickToSelect: true,
+            sortName: 'id', // 要排序的字段
+            sortOrder: 'desc', // 排序规则
+            queryParams: queryParams,
+            responseHandler: function responseHandler(response) {
+                return {
+                    "rows": response.result.items, // 具体每一个bean的列表
+                    "total": response.result.total  // 总共有多少条返回数据
+                }
+            },
+            columns: [
+                {
+                    field: 'id', // 返回json数据中的name
+                    title: 'ID', // 表格表头显示文字
+                    align: 'center', // 左右居中
+                    valign: 'middle' // 上下居中
+                },
+				{
+                    field: 'name',
+                    title: '站名',
+                    align: 'center',
+                    valign: 'middle'
+                },
+				{
+                    field: 'province',
+                    title: '省',
+                    align: 'center',
+                    valign: 'middle'
+                },
+				{
+                    field: 'provinceId',
+                    title: '省id',
+                    align: 'center',
+                    valign: 'middle',
+					visible:false
+                },
+				{
+                    field: 'city',
+                    title: '市',
+                    align: 'center',
+                    valign: 'middle',
+                },
+				{
+                    field: 'cityId',
+                    title: '市id',
+                    align: 'center',
+                    valign: 'middle',
+					visible: false
+                },
+				{
+                    field: 'section',
+                    title: '区/县',
+                    align: 'center',
+                    valign: 'middle',
+                },
+				{
+                    field: 'sectionId',
+                    title: '区/县id',
+                    align: 'center',
+                    valign: 'middle',
+					visible: false
+                },
+				{
+                    field: 'address',
+                    title: '详细地址',
+                    align: 'center',
+                    valign: 'middle'
+                },
+				{
+                    field: 'status',
+                    title: '状态',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        var text = '-';
+                        if (value == 1) {
+                            text = '启用';
+                        } else if (value == 2) {
+                            text = '禁用';
+                        }
+                        return text;
+                    }
+
+                },
+				{
+                    field: "createTime",
+                    title: '创建时间',
+                    align: 'center',
+                    valign: 'middle',
+                },
+				{
+                    field: "操作",
+                    title: '操作',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: AddFunctionAlty
+                }
+            ],
+            onLoadSuccess: function () {  //加载成功时执行
+                console.info("加载成功");
+            },
+            onLoadError: function () {  //加载失败时执行
+                console.info("加载数据失败");
+            },
+        })
+
+        function queryParams(params) {
+            var temp = {
+                limit:params.limit,
+                offset:params.offset,
+                id:$("#id").val(),
+                name:$("#name").val(),
+                provinceId:$("#Province").val(),
+                cityId:$("#City").val(),
+                sectionId:$("#Section").val(),
+                status:$("#status").val(),
+            };
+            return temp;
+        }
+        function AddFunctionAlty(value, row, index) {
+            return[
+                '<button id="editor" type="button" class="btn btn-default">编辑</button>'
+            ]
+        }
+    }
+</script>
+<script type="text/javascript">
+    window.operateEvents = {
+        "click #editor": function (e, value, row, index) {
+            var id = row.id;
+            $("#myModal").modal({
+			});	//	打开模态框
+            $('input[name="id"]').val(row.id)
+            $('input[name="name"]').val(row.name)
+            $('input[name="address"]').val(row.address)
+            $("input[name='status'][value=" + row.status + "]").attr("checked", true);
+            $('input[name="createTime"]').val(row.createTime)
+            $('input[name="provinceId"]').val(row.provinceId)
+            $('input[name="cityId"]').val(row.cityId)
+            $('input[name="sectionId"]').val(row.sectionId)
+        }
+    }
+</script>
+<script>
+    function saveStation() {
+        var param = $("#stationInfo").serialize()
+		console.log(param)
+        $.ajax({
+            //几个参数需要注意一下
+            type: "post",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+            url: "/saveStation" ,//url
+            data: param,
+            success: function (response) {
+                if (response.code == 0) {
+                    alert(response.message);
+                }else
+                    alert(response.message);
+            },
+            error : function() {
+                lert("系统请求失败");
+            }
+        });
+    }
+</script>
+<script>
+    $(function () {
+        //默认绑定省
+        ProviceBind();
+        //绑定事件
+        $("#Province").change( function () {
+            CityBind();
+            $("#Section").val("请选择")
+        })
+        $("#City").change(function () {
+            SectionBind();
+        })
+    })
+    function Bind(str) {
+        alert($("#Province").html());
+        $("#Province").val(str);
+    }
+    function ProviceBind() {
+        //清空下拉数据
+        $("#Province").html("");
+        var str = "<option>请选择</option>";
+        var parentId = 1;
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#Province").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function CityBind() {
+		var provice = $("#Province").attr("value");
+        //判断省份这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#City").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#Province option:selected').val();
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#City").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function SectionBind() {
+        var provice = $("#City").attr("value");
+        //判断市这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#Section").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#City option:selected').val();
+        //将市的ID拿到数据库进行查询，查询出他的下级进行绑定
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#Section").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+</script>
+<script>
+    $(function () {
+        //默认绑定省
+        ProviceBind();
+        //绑定事件
+        $("#provinceId").change( function () {
+            CityBind();
+            $("#sectionId").val("请选择")
+        })
+        $("#cityId").change(function () {
+            SectionBind();
+        })
+    })
+    function Bind(str) {
+        alert($("#provinceId").html());
+        $("#provinceId").val(str);
+    }
+    function ProviceBind() {
+        //清空下拉数据
+        $("#provinceId").html("");
+        var str = "<option>请选择</option>";
+        var parentId = 1;
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#provinceId").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function CityBind() {
+        var provice = $("#provinceId").attr("value");
+        //判断省份这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#cityId").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#provinceId option:selected').val();
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#cityId").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function SectionBind() {
+        var provice = $("#cityId").attr("value");
+        //判断市这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#sectionId").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#cityId option:selected').val();
+        //将市的ID拿到数据库进行查询，查询出他的下级进行绑定
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#sectionId").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+</script>
+</body>
+
+</html>

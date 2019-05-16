@@ -8,7 +8,9 @@ import org.gdou.busstation.Util.ObjectUtils;
 import org.gdou.busstation.dto.*;
 import org.gdou.busstation.exception.ServiceException;
 import org.gdou.busstation.mapper.StationMapper;
+import org.gdou.busstation.model.Region;
 import org.gdou.busstation.model.Station;
+import org.gdou.busstation.service.RegionService;
 import org.gdou.busstation.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class StationServiceImpl implements StationService {
 
     @Autowired
     StationMapper stationMapper;
+    @Autowired
+    RegionService regionService;
 
     @Override
     public GetStationResponseDto getStation(GetStationRequestDto requestDto) {
@@ -35,6 +39,9 @@ public class StationServiceImpl implements StationService {
                 StationDetailDto detailDto = new StationDetailDto();
                 //  TODO：copy方法偷懒大法
                 ObjectUtils.copy(station,detailDto);
+                detailDto.setProvince(regionService.getRegionById(station.getProvinceId()));
+                detailDto.setCity(regionService.getRegionById(station.getCityId()));
+                detailDto.setSection(regionService.getRegionById(station.getSectionId()));
                 items.add(detailDto);
             }
         }
@@ -50,22 +57,20 @@ public class StationServiceImpl implements StationService {
             station.setCreateTime(new Date());
             stationMapper.insertSelective(station);
             return new CommonResponseDto().code(0).success(true).message("新建成功");
-        }else if (requestDto.getId() != null){
+        }else{
             Station station = stationMapper.selectByPrimaryKey(requestDto.getId());
             if (station == null){
                 throw new ServiceException(BusStationContants.SYS_NOT_FOUND, String.format("找不到id=%d的车站信息", requestDto.getId()));
             }
             station.setName(requestDto.getName());
-            station.setProvinceCode(requestDto.getProvinceCode());
-            station.setCityCode(requestDto.getCityCode());
-            station.setSectionCode(requestDto.getSectionCode());
-            station.setProvince(requestDto.getProvince());
-            station.setSection(requestDto.getSection());
+            station.setProvinceId(requestDto.getProvinceId());
+            station.setCityId(requestDto.getCityId());
+            station.setSectionId(requestDto.getSectionId());
             station.setAddress(requestDto.getAddress());
             station.setStatus(requestDto.getStatus());
             station.setUpdateTime(new Date());
             stationMapper.updateByPrimaryKeySelective(station);
+            return new CommonResponseDto().code(0).success(true).message("更新成功");
         }
-        return new CommonResponseDto().code(0).success(true).message("更新成功");
     }
 }

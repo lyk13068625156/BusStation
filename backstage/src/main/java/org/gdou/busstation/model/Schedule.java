@@ -18,17 +18,11 @@ public class Schedule implements Serializable {
     @Column(name = "list_id")
     private Integer listId;
 
-    @Column(name = "list_name")
-    private Integer listName;
-
     @Column(name = "this_station_id")
     private Integer thisStationId;
 
     @Column(name = "day")
     private Date day;
-
-    @Column(name = "this_station_name")
-    private String thisStationName;
 
     @Column(name = "leave_time")
     private Date leaveTime;
@@ -38,9 +32,6 @@ public class Schedule implements Serializable {
 
     @Column(name = "next_station_id")
     private Integer nextStationId;
-
-    @Column(name = "next_station_name")
-    private String nextStationName;
 
     @Column(name = "distance")
     private Integer distance;
@@ -89,14 +80,6 @@ public class Schedule implements Serializable {
         this.day = day;
     }
 
-    public String getThisStationName() {
-        return thisStationName;
-    }
-
-    public void setThisStationName(String thisStationName) {
-        this.thisStationName = thisStationName;
-    }
-
     public Date getLeaveTime() {
         return leaveTime;
     }
@@ -119,14 +102,6 @@ public class Schedule implements Serializable {
 
     public void setNextStationId(Integer nextStationId) {
         this.nextStationId = nextStationId;
-    }
-
-    public String getNextStationName() {
-        return nextStationName;
-    }
-
-    public void setNextStationName(String nextStationName) {
-        this.nextStationName = nextStationName;
     }
 
     public Integer getDistance() {
@@ -167,13 +142,5 @@ public class Schedule implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getListName() {
-        return listName;
-    }
-
-    public void setListName(Integer listName) {
-        this.listName = listName;
     }
 }

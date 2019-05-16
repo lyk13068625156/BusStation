@@ -17,11 +17,11 @@ public class GetStationRequestDto implements Serializable {
   private String city = null;
   private String name = null;
   private Integer limit = null;
-  private Integer cityCode = null;
-  private Integer sectionCode = null;
+  private Integer cityId = null;
+  private Integer sectionId = null;
   private String section = null;
   private Integer id = null;
-  private Integer provinceCode = null;
+  private Integer provinceId = null;
   private Integer status = null;
 
   
@@ -117,37 +117,37 @@ public class GetStationRequestDto implements Serializable {
   
   /**
    **/
-  public GetStationRequestDto cityCode(Integer cityCode) {
-    this.cityCode = cityCode;
+  public GetStationRequestDto cityId(Integer cityId) {
+    this.cityId = cityId;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("city_code")
-  public Integer getCityCode() {
-    return cityCode;
+  @JsonProperty("cityId")
+  public Integer getCityId() {
+    return cityId;
   }
-  public void setCityCode(Integer cityCode) {
-    this.cityCode = cityCode;
+  public void setCityId(Integer cityId) {
+    this.cityId = cityId;
   }
 
   
   /**
    **/
-  public GetStationRequestDto sectionCode(Integer sectionCode) {
-    this.sectionCode = sectionCode;
+  public GetStationRequestDto sectionId(Integer sectionId) {
+    this.sectionId = sectionId;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("section_code")
-  public Integer getSectionCode() {
-    return sectionCode;
+  @JsonProperty("sectionId")
+  public Integer getSectionId() {
+    return sectionId;
   }
-  public void setSectionCode(Integer sectionCode) {
-    this.sectionCode = sectionCode;
+  public void setSectionId(Integer sectionId) {
+    this.sectionId = sectionId;
   }
 
   
@@ -189,19 +189,19 @@ public class GetStationRequestDto implements Serializable {
   
   /**
    **/
-  public GetStationRequestDto provinceCode(Integer provinceCode) {
-    this.provinceCode = provinceCode;
+  public GetStationRequestDto provinceId(Integer provinceId) {
+    this.provinceId = provinceId;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("province_code")
-  public Integer getProvinceCode() {
-    return provinceCode;
+  @JsonProperty("provinceId")
+  public Integer getProvinceId() {
+    return provinceId;
   }
-  public void setProvinceCode(Integer provinceCode) {
-    this.provinceCode = provinceCode;
+  public void setProvinceId(Integer provinceCode) {
+    this.provinceId = provinceId;
   }
 
   
@@ -238,17 +238,17 @@ public class GetStationRequestDto implements Serializable {
         Objects.equals(city, getStationRequest.city) &&
         Objects.equals(name, getStationRequest.name) &&
         Objects.equals(limit, getStationRequest.limit) &&
-        Objects.equals(cityCode, getStationRequest.cityCode) &&
-        Objects.equals(sectionCode, getStationRequest.sectionCode) &&
+        Objects.equals(cityId, getStationRequest.cityId) &&
+        Objects.equals(sectionId, getStationRequest.sectionId) &&
         Objects.equals(section, getStationRequest.section) &&
         Objects.equals(id, getStationRequest.id) &&
-        Objects.equals(provinceCode, getStationRequest.provinceCode) &&
+        Objects.equals(provinceId, getStationRequest.provinceId) &&
         Objects.equals(status, getStationRequest.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(province, offset, city, name, limit, cityCode, sectionCode, section, id, provinceCode, status);
+    return Objects.hash(province, offset, city, name, limit, cityId, sectionId, section, id, provinceId, status);
   }
 
   @Override
@@ -261,11 +261,11 @@ public class GetStationRequestDto implements Serializable {
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    cityCode: ").append(toIndentedString(cityCode)).append("\n");
-    sb.append("    sectionCode: ").append(toIndentedString(sectionCode)).append("\n");
+    sb.append("    cityId: ").append(toIndentedString(cityId)).append("\n");
+    sb.append("    sectionId: ").append(toIndentedString(sectionId)).append("\n");
     sb.append("    section: ").append(toIndentedString(section)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    provinceCode: ").append(toIndentedString(provinceCode)).append("\n");
+    sb.append("    provinceId: ").append(toIndentedString(provinceId)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

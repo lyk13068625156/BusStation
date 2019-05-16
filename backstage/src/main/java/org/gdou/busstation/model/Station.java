@@ -17,23 +17,14 @@ public class Station implements Serializable  {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "province_code")
-    private Integer provinceCode;
+    @Column(name = "province_id")
+    private Integer provinceId;
 
-    @Column(name = "city_code")
-    private Integer cityCode;
+    @Column(name = "city_id")
+    private Integer cityId;
 
-    @Column(name = "section_code")
-    private Integer sectionCode;
-
-    @Column(name = "province")
-    private String province;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "section")
-    private String section;
+    @Column(name = "section_id")
+    private Integer sectionId;
 
     @Column(name = "address")
     private String address;
@@ -63,52 +54,28 @@ public class Station implements Serializable  {
         this.name = name;
     }
 
-    public Integer getProvinceCode() {
-        return provinceCode;
+    public Integer getProvinceId() {
+        return provinceId;
     }
 
-    public void setProvinceCode(Integer provinceCode) {
-        this.provinceCode = provinceCode;
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public Integer getCityCode() {
-        return cityCode;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCityCode(Integer cityCode) {
-        this.cityCode = cityCode;
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 
-    public Integer getSectionCode() {
-        return sectionCode;
+    public Integer getSectionId() {
+        return sectionId;
     }
 
-    public void setSectionCode(Integer sectionCode) {
-        this.sectionCode = sectionCode;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
+    public void setSectionId(Integer sectionId) {
+        this.sectionId = sectionId;
     }
 
     public String getAddress() {
@@ -141,29 +108,5 @@ public class Station implements Serializable  {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Station station = (Station) o;
-        return Objects.equals(id, station.id) &&
-                Objects.equals(name, station.name) &&
-                Objects.equals(provinceCode, station.provinceCode) &&
-                Objects.equals(cityCode, station.cityCode) &&
-                Objects.equals(sectionCode, station.sectionCode) &&
-                Objects.equals(province, station.province) &&
-                Objects.equals(city, station.city) &&
-                Objects.equals(section, station.section) &&
-                Objects.equals(address, station.address) &&
-                Objects.equals(status, station.status) &&
-                Objects.equals(createTime, station.createTime) &&
-                Objects.equals(updateTime, station.updateTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name,provinceCode, cityCode,sectionCode , province, city, section, address, status, createTime, updateTime);
     }
 }

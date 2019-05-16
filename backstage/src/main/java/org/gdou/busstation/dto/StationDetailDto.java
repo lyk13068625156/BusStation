@@ -14,11 +14,11 @@ public class StationDetailDto implements Serializable {
   
   private Integer id = null;
   private String name = null;
-  private Integer provinceCode = null;
+  private Integer provinceId = null;
   private String province = null;
-  private Integer cityCode = null;
+  private Integer cityId = null;
   private String city = null;
-  private Integer sectionCode = null;
+  private Integer sectionId = null;
   private String section = null;
   private String address = null;
   private Integer status = null;
@@ -66,19 +66,19 @@ public class StationDetailDto implements Serializable {
   /**
    * 省编号
    **/
-  public StationDetailDto provinceCode(Integer provinceCode) {
-    this.provinceCode = provinceCode;
+  public StationDetailDto provinceId(Integer provinceId) {
+    this.provinceId = provinceId;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "省编号")
-  @JsonProperty("province_code")
-  public Integer getProvinceCode() {
-    return provinceCode;
+  @JsonProperty("provinceId")
+  public Integer getProvinceId() {
+    return provinceId;
   }
-  public void setProvinceCode(Integer provinceCode) {
-    this.provinceCode = provinceCode;
+  public void setProvinceId(Integer provinceId) {
+    this.provinceId = provinceId;
   }
 
   
@@ -104,19 +104,19 @@ public class StationDetailDto implements Serializable {
   /**
    * 市编号
    **/
-  public StationDetailDto cityCode(Integer cityCode) {
-    this.cityCode = cityCode;
+  public StationDetailDto cityId(Integer cityId) {
+    this.cityId = cityId;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "市编号")
-  @JsonProperty("city_code")
-  public Integer getCityCode() {
-    return cityCode;
+  @JsonProperty("cityId")
+  public Integer getCityId() {
+    return cityId;
   }
-  public void setCityCode(Integer cityCode) {
-    this.cityCode = cityCode;
+  public void setCityId(Integer cityId) {
+    this.cityId = cityId;
   }
 
   
@@ -142,19 +142,19 @@ public class StationDetailDto implements Serializable {
   /**
    * 区编号
    **/
-  public StationDetailDto sectionCode(Integer sectionCode) {
-    this.sectionCode = sectionCode;
+  public StationDetailDto sectionId(Integer sectionId) {
+    this.sectionId = sectionId;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "区编号")
-  @JsonProperty("section_code")
-  public Integer getSectionCode() {
-    return sectionCode;
+  @JsonProperty("sectionId")
+  public Integer getSectionId() {
+    return sectionId;
   }
-  public void setSectionCode(Integer sectionCode) {
-    this.sectionCode = sectionCode;
+  public void setSectionId(Integer sectionId) {
+    this.sectionId = sectionId;
   }
 
   
@@ -225,7 +225,7 @@ public class StationDetailDto implements Serializable {
 
   
   @ApiModelProperty(example = "null", value = "创建时间")
-  @JsonProperty("create_time")
+  @JsonProperty("createTime")
   public String getCreateTime() {
     return createTime;
   }
@@ -246,11 +246,11 @@ public class StationDetailDto implements Serializable {
     StationDetailDto stationDetail = (StationDetailDto) o;
     return Objects.equals(id, stationDetail.id) &&
         Objects.equals(name, stationDetail.name) &&
-        Objects.equals(provinceCode, stationDetail.provinceCode) &&
+        Objects.equals(provinceId, stationDetail.provinceId) &&
         Objects.equals(province, stationDetail.province) &&
-        Objects.equals(cityCode, stationDetail.cityCode) &&
+        Objects.equals(cityId, stationDetail.cityId) &&
         Objects.equals(city, stationDetail.city) &&
-        Objects.equals(sectionCode, stationDetail.sectionCode) &&
+        Objects.equals(sectionId, stationDetail.sectionId) &&
         Objects.equals(section, stationDetail.section) &&
         Objects.equals(address, stationDetail.address) &&
         Objects.equals(status, stationDetail.status) &&
@@ -259,7 +259,7 @@ public class StationDetailDto implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, provinceCode, province, cityCode, city, sectionCode, section, address, status, createTime);
+    return Objects.hash(id, name, provinceId, province, cityId, city, sectionId, section, address, status, createTime);
   }
 
   @Override
@@ -269,11 +269,11 @@ public class StationDetailDto implements Serializable {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    provinceCode: ").append(toIndentedString(provinceCode)).append("\n");
+    sb.append("    provinceCode: ").append(toIndentedString(provinceId)).append("\n");
     sb.append("    province: ").append(toIndentedString(province)).append("\n");
-    sb.append("    cityCode: ").append(toIndentedString(cityCode)).append("\n");
+    sb.append("    cityCode: ").append(toIndentedString(cityId)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
-    sb.append("    sectionCode: ").append(toIndentedString(sectionCode)).append("\n");
+    sb.append("    sectionCode: ").append(toIndentedString(sectionId)).append("\n");
     sb.append("    section: ").append(toIndentedString(section)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
