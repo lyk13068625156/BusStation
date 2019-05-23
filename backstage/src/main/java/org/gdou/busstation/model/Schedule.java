@@ -5,6 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,10 +24,10 @@ public class Schedule implements Serializable {
     private Integer thisStationId;
 
     @Column(name = "day")
-    private Date day;
+    private LocalDate day;
 
     @Column(name = "leave_time")
-    private Date leaveTime;
+    private LocalTime leaveTime;
 
     @Column(name = "seat")
     private Integer seat;
@@ -72,19 +74,19 @@ public class Schedule implements Serializable {
         this.thisStationId = thisStationId;
     }
 
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 
-    public Date getLeaveTime() {
+    public LocalTime getLeaveTime() {
         return leaveTime;
     }
 
-    public void setLeaveTime(Date leaveTime) {
+    public void setLeaveTime(LocalTime leaveTime) {
         this.leaveTime = leaveTime;
     }
 

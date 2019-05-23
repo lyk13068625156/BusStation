@@ -2,6 +2,7 @@ package org.gdou.busstation.controller;
 
 import org.gdou.busstation.dto.GetRegionRequestDto;
 import org.gdou.busstation.dto.GetRegionResponseDto;
+import org.gdou.busstation.dto.SetRegionResponseDto;
 import org.gdou.busstation.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,5 +21,10 @@ public class RegionController {
         requestDto.setParentId(parentId);
         GetRegionResponseDto region = regionService.getRegion(requestDto);
         return region;
+    }
+    @GetMapping(path = "/setRegion/{regionId}")
+    SetRegionResponseDto setRegion(@PathVariable Integer regionId){
+        SetRegionResponseDto responseDto = regionService.setRegion(regionId);
+        return responseDto;
     }
 }

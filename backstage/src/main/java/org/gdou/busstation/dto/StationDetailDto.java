@@ -62,7 +62,7 @@ public class StationDetailDto implements Serializable {
     this.name = name;
   }
 
-  
+
   /**
    * 省编号
    **/
@@ -71,7 +71,7 @@ public class StationDetailDto implements Serializable {
     return this;
   }
 
-  
+
   @ApiModelProperty(example = "null", value = "省编号")
   @JsonProperty("provinceId")
   public Integer getProvinceId() {
@@ -109,7 +109,7 @@ public class StationDetailDto implements Serializable {
     return this;
   }
 
-  
+
   @ApiModelProperty(example = "null", value = "市编号")
   @JsonProperty("cityId")
   public Integer getCityId() {
@@ -119,7 +119,7 @@ public class StationDetailDto implements Serializable {
     this.cityId = cityId;
   }
 
-  
+
   /**
    * 市名
    **/
@@ -138,7 +138,7 @@ public class StationDetailDto implements Serializable {
     this.city = city;
   }
 
-  
+
   /**
    * 区编号
    **/
@@ -147,7 +147,7 @@ public class StationDetailDto implements Serializable {
     return this;
   }
 
-  
+
   @ApiModelProperty(example = "null", value = "区编号")
   @JsonProperty("sectionId")
   public Integer getSectionId() {
@@ -157,7 +157,7 @@ public class StationDetailDto implements Serializable {
     this.sectionId = sectionId;
   }
 
-  
+
   /**
    * 区名
    **/

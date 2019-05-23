@@ -1,9 +1,6 @@
 package org.gdou.busstation.service.impl;
 
-import org.gdou.busstation.dto.GetRegionRequestDto;
-import org.gdou.busstation.dto.GetRegionResponseDto;
-import org.gdou.busstation.dto.GetRegionResponseResultDto;
-import org.gdou.busstation.dto.RegionDetailDto;
+import org.gdou.busstation.dto.*;
 import org.gdou.busstation.mapper.RegionMapper;
 import org.gdou.busstation.model.Region;
 import org.gdou.busstation.service.RegionService;
@@ -46,5 +43,19 @@ public class RegionServiceImpl implements RegionService {
     public String getRegionById(Integer id) {
         String region = regionMapper.getRegionByid(id);
         return region;
+    }
+
+    @Override
+    public SetRegionResponseDto setRegion(Integer regionId) {
+        Region region = regionMapper.selectByPrimaryKey(regionId);
+        SetRegionResponseResultDto resultDto = new SetRegionResponseResultDto();
+        if (region != null){
+            resultDto.setRegionId(region.getRegionId());
+            resultDto.setRegionName(region.getRegionName());
+        }else {
+            resultDto.setRegionId(regionId);
+            resultDto.setRegionName("");
+        }
+        return new SetRegionResponseDto().code(0).success(true).result(resultDto);
     }
 }

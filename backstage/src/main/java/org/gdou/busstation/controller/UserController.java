@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/user")
 public class UserController {
 
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -21,12 +20,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @PostMapping(path="/user?page={page}&limit={limit}")      @PathVariable("page") Integer page, @PathVariable("limit") Integer limit
-    @PostMapping(path="/user")
-    GetUserResponseDto getUser(@RequestBody GetUserRequestDto requests){
+    @GetMapping(path="/user")
+    GetUserResponseDto getUser(GetUserRequestDto requests){
         System.out.println(requests.toString());
-//        request.setPage(page);
-//        request.setLimit(limit);
         GetUserResponseDto repsonse = userService.getUser(requests);
         return repsonse;
     }

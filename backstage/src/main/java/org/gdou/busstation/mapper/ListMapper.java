@@ -1,6 +1,7 @@
 package org.gdou.busstation.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.gdou.busstation.dto.GetListRequestDto;
 import org.gdou.busstation.mapper.provide.ListProvider;
@@ -9,6 +10,9 @@ import org.gdou.busstation.tkMybatis.BaseMapper;
 
 @Mapper
 public interface ListMapper extends BaseMapper<List> {
+
+    @Select("select max(id) from list")
+    Integer getMaxId();
 
     @SelectProvider(type = ListProvider.class, method = "getList")
     java.util.List<List> getList(GetListRequestDto requestDto);

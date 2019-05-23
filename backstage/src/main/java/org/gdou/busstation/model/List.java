@@ -4,28 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 
-@Table(name = "station")
+@Table(name = "list")
 public class List implements Serializable {
     @Id
     @Column(name = "id")
     private Integer id;
 
     @Column(name = "name")
-    private Integer name;
+    private String name;
 
     @Column(name = "first_station")
     private Integer firstStation;
 
     @Column(name = "leave_time")
-    private Date leaveTime;
+    private LocalTime leaveTime;
 
     @Column(name = "last_station")
     private Integer lastStation;
 
     @Column(name = "arrive_time")
-    private Date arriveTime;
+    private LocalTime arriveTime;
 
     @Column(name = "via")
     private String via;
@@ -64,11 +65,11 @@ public class List implements Serializable {
         this.firstStation = firstStation;
     }
 
-    public Date getLeaveTime() {
+    public LocalTime getLeaveTime() {
         return leaveTime;
     }
 
-    public void setLeaveTime(Date leaveTime) {
+    public void setLeaveTime(LocalTime leaveTime) {
         this.leaveTime = leaveTime;
     }
 
@@ -80,11 +81,11 @@ public class List implements Serializable {
         this.lastStation = lastStation;
     }
 
-    public Date getArriveTime() {
+    public LocalTime getArriveTime() {
         return arriveTime;
     }
 
-    public void setArriveTime(Date arriveTime) {
+    public void setArriveTime(LocalTime arriveTime) {
         this.arriveTime = arriveTime;
     }
 
@@ -142,5 +143,13 @@ public class List implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -53,19 +53,27 @@ public class StationServiceImpl implements StationService {
     public CommonResponseDto saveStation(SaveStationRequestDto requestDto) {
         if (requestDto.getId() == null){    //新建
             Station station = new Station();
-            ObjectUtils.copy(requestDto,station);
+            station.setName(requestDto.getName());
+            station.setProvinceId(requestDto.getProvince());
+            station.setCityId(requestDto.getCity());
+            station.setSectionId(requestDto.getSection());
+            station.setStatus(requestDto.getStatus());
+            station.setAddress(requestDto.getAddress());
             station.setCreateTime(new Date());
-            stationMapper.insertSelective(station);
-            return new CommonResponseDto().code(0).success(true).message("新建成功");
+            int i = stationMapper.insertSelective(station);
+            if (i == 1){
+                return new CommonResponseDto().code(0).success(true).message("新增成功");
+            }else
+                return new CommonResponseDto().code(1).success(false).message("新增失败");
         }else{
             Station station = stationMapper.selectByPrimaryKey(requestDto.getId());
             if (station == null){
                 throw new ServiceException(BusStationContants.SYS_NOT_FOUND, String.format("找不到id=%d的车站信息", requestDto.getId()));
             }
             station.setName(requestDto.getName());
-            station.setProvinceId(requestDto.getProvinceId());
-            station.setCityId(requestDto.getCityId());
-            station.setSectionId(requestDto.getSectionId());
+            station.setProvinceId(requestDto.getProvince());
+            station.setCityId(requestDto.getCity());
+            station.setSectionId(requestDto.getSection());
             station.setAddress(requestDto.getAddress());
             station.setStatus(requestDto.getStatus());
             station.setUpdateTime(new Date());

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>站点管理</title>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../../static/admin/jquery/jquery.js"></script>
+    <script src="../../static/admin/jquery/jquery-form.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>站点详情</h1>
+<form class="form-horizontal" role="form" id="stationInfoForm">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">id</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="id" name="id" type="text"  placeholder="id" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">站名</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="name" name="name" type="text"  placeholder="站名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">省</label>
+        <div class="col-sm-10">
+            <select name="province" id="province">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">市</label>
+        <div class="col-sm-10">
+            <select name="city" id="city">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">区/县</label>
+        <div class="col-sm-10">
+            <select name="section" id="section">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">详细地址</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="address" name="address" type="text"  placeholder="详细地址">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">状态</label>
+        <label class="radio-inline">
+            <input type="radio" name="status" value="1"> 启用
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="status"  value="2"> 禁用
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">创建时间</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="createTime" name="createTime" type="text"  placeholder="注册时间" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10" align="center">
+            <button type="button" class="btn btn-default" onclick="updateStationInfo()">保存</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10" align="center">
+            <button type="button" class="btn btn-default" onclick="updateDropDowm()">更新地区</button>
+        </div>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    $(function() {// 初始化内容
+        var loc = location.href;
+        var n1 = loc.length;//地址的总长度
+        var n2 = loc.indexOf("=");//取得=号的位置
+        var id = decodeURI(loc.substr(n2+1, n1-n2));//从=号后面的内容
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/station?id=" + id ,//url
+            success: function (response) {
+                if (response.code == 0) {
+                    $('input[name="id"]').val(response.result.items[0].id)
+                    $('input[name="name"]').val(response.result.items[0].name)
+                    // $('select[name="province"]').val(response.result.items[0].provinceId)
+                    // $('select[name="city"]').val(response.result.items[0].cityId)
+                    // $('select[name="section"]').val(response.result.items[0].sectionId)
+                    $('input[name="address"]').val(response.result.items[0].address)
+                    $("input[name='status'][value=" + response.result.items[0].status + "]").attr("checked", true);
+                    $('input[name="createTime"]').val(response.result.items[0].createTime)
+                    initDropDown(response.result.items[0]);
+                }else
+                    alert(response.message);
+            },
+            error : function() {
+                console.log("系统请求失败");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+
+    function initDropDown(param) {
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/setRegion/" + param.provinceId ,//url
+            success: function (response) {
+                console.log("初始化省")
+                if (response.code == 0) {
+                    var provinceId = response.result.regionId;
+                    var provinceName = response.result.regionName;
+                    var sel = document.getElementById("province");
+                    var option = new Option(provinceName, provinceId);
+                    sel.options.add(option);
+                    $('select[name="province"]').val(response.result.regionId)
+                }else
+                    alert(response.message);
+            },
+            error : function() {
+                console.log("系统请求失败");
+            }
+        });
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/setRegion/" + param.cityId ,//url
+            success: function (response) {
+                console.log("初始化市")
+                if (response.code == 0) {
+                    var cityId = response.result.regionId;
+                    var cityName = response.result.regionName;
+                    var sel = document.getElementById("city");
+                    var option = new Option(cityName, cityId);
+                    sel.options.add(option);
+                    $('select[name="city"]').val(response.result.regionId)
+                    // $('select[name="city"]').val(response.result.items[0].cityId)
+                    // $('select[name="section"]').val(response.result.items[0].sectionId)
+                }else
+                    alert(response.message);
+            },
+            error : function() {
+                console.log("系统请求失败");
+            }
+        });
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/setRegion/" + param.sectionId ,//url
+            success: function (response) {
+                console.log("初始化区")
+                if (response.code == 0) {
+                    var sectionId = response.result.regionId;
+                    var sectionName = response.result.regionName;
+                    var sel = document.getElementById("section");
+                    var option = new Option(sectionName, sectionId);
+                    sel.options.add(option);
+                    $('select[name="section"]').val(response.result.regionId)
+                }else
+                    alert(response.message);
+            },
+            error : function() {
+                console.log("系统请求失败");
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    function updateStationInfo() {
+        $.ajax({
+            //几个参数需要注意一下
+            type: "post",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/saveStation" ,//url
+            data: $("#stationInfoForm").serialize(),
+            success: function (response) {
+                if (response.code == 0) {
+                    alert('修改成功');
+                }else{
+                    alert(response.message);
+                }
+            },
+            error : function() {
+                alert("系统请求失败")
+            },
+            error : function(XMLHttpRequest) {
+                alert("错误信息：" + JSON.parse(XMLHttpRequest.responseText).message)
+            }
+        });
+    }
+</script>
+
+<script>
+    // $(function () {
+    function updateDropDowm(){
+        $("#province").empty()
+        $("#city").empty()
+        $("#section").empty()
+
+        //默认绑定省
+        ProviceBind();
+        //绑定事件
+        $("#province").change( function () {
+            CityBind();
+            $("#section").val("请选择")
+        })
+        $("#city").change(function () {
+            SectionBind();
+        })
+    }
+    function Bind(str) {
+        alert($("#province").html());
+        $("#province").val(str);
+    }
+    function ProviceBind() {
+        //清空下拉数据
+        $("#province").html("");
+        var str = "<option>请选择</option>";
+        var parentId = 1;
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#province").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function CityBind() {
+        var provice = $("#province").attr("value");
+        //判断省份这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#city").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#province option:selected').val();
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#city").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function SectionBind() {
+        var provice = $("#city").attr("value");
+        //判断市这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#section").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#city option:selected').val();
+        //将市的ID拿到数据库进行查询，查询出他的下级进行绑定
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#section").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+</script>
+
+<script>
+    $(function () {
+        //默认绑定省
+        ProviceBind();
+        //绑定事件
+        $("#province").change( function () {
+            CityBind();
+            $("#section").val("请选择")
+        })
+        $("#city").change(function () {
+            SectionBind();
+        })
+    })
+    function Bind(str) {
+        alert($("#province").html());
+        $("#province").val(str);
+    }
+    function ProviceBind() {
+        //清空下拉数据
+        $("#province").html("");
+        var str = "<option>请选择</option>";
+        var parentId = 1;
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#province").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function CityBind() {
+        var provice = $("#province").attr("value");
+        //判断省份这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#city").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#province option:selected').val();
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#city").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+    function SectionBind() {
+        var provice = $("#City").attr("value");
+        //判断市这个下拉框选中的值是否为空
+        if (provice == "") {
+            return;
+        }
+        $("#section").html("");
+        var str = "<option>请选择</option>";
+        var parentId = $('#city option:selected').val();
+        //将市的ID拿到数据库进行查询，查询出他的下级进行绑定
+        $.ajax({
+            type: "get",
+            url: "/getRegion/" + parentId,
+            //data: { "parentId": ""},
+            dataType: "JSON",
+            async: false,
+            success: function (response) {
+                //从服务器获取数据进行绑定
+                $.each(response.result.items, function (i, item) {
+                    str += "<option value=" + item.id + ">" + item.regionName + "</option>";
+                })
+                //将数据添加到省份这个下拉框里面
+                $("#section").append(str);
+            },
+            error: function () { alert("Error"); }
+        });
+    }
+</script>
+<!--<script>-->
+    <!--$(function () {-->
+        <!--//默认绑定省-->
+        <!--ProviceBind();-->
+        <!--//绑定事件-->
+        <!--$("#provinceId").change( function () {-->
+            <!--CityBind();-->
+            <!--$("#sectionId").val("请选择")-->
+        <!--})-->
+        <!--$("#cityId").change(function () {-->
+            <!--SectionBind();-->
+        <!--})-->
+    <!--})-->
+    <!--function Bind(str) {-->
+        <!--alert($("#provinceId").html());-->
+        <!--$("#provinceId").val(str);-->
+    <!--}-->
+    <!--function ProviceBind() {-->
+        <!--//清空下拉数据-->
+        <!--$("#provinceId").html("");-->
+        <!--var str = "<option>请选择</option>";-->
+        <!--var parentId = 1;-->
+        <!--$.ajax({-->
+            <!--type: "get",-->
+            <!--url: "/getRegion/" + parentId,-->
+            <!--//data: { "parentId": ""},-->
+            <!--dataType: "JSON",-->
+            <!--async: false,-->
+            <!--success: function (response) {-->
+                <!--//从服务器获取数据进行绑定-->
+                <!--$.each(response.result.items, function (i, item) {-->
+                    <!--str += "<option value=" + item.id + ">" + item.regionName + "</option>";-->
+                <!--})-->
+                <!--//将数据添加到省份这个下拉框里面-->
+                <!--$("#provinceId").append(str);-->
+            <!--},-->
+            <!--error: function () { alert("Error"); }-->
+        <!--});-->
+    <!--}-->
+    <!--function CityBind() {-->
+        <!--var provice = $("#provinceId").attr("value");-->
+        <!--//判断省份这个下拉框选中的值是否为空-->
+        <!--if (provice == "") {-->
+            <!--return;-->
+        <!--}-->
+        <!--$("#cityId").html("");-->
+        <!--var str = "<option>请选择</option>";-->
+        <!--var parentId = $('#provinceId option:selected').val();-->
+        <!--$.ajax({-->
+            <!--type: "get",-->
+            <!--url: "/getRegion/" + parentId,-->
+            <!--dataType: "JSON",-->
+            <!--async: false,-->
+            <!--success: function (response) {-->
+                <!--//从服务器获取数据进行绑定-->
+                <!--$.each(response.result.items, function (i, item) {-->
+                    <!--str += "<option value=" + item.id + ">" + item.regionName + "</option>";-->
+                <!--})-->
+                <!--//将数据添加到省份这个下拉框里面-->
+                <!--$("#cityId").append(str);-->
+            <!--},-->
+            <!--error: function () { alert("Error"); }-->
+        <!--});-->
+    <!--}-->
+    <!--function SectionBind() {-->
+        <!--var provice = $("#cityId").attr("value");-->
+        <!--//判断市这个下拉框选中的值是否为空-->
+        <!--if (provice == "") {-->
+            <!--return;-->
+        <!--}-->
+        <!--$("#sectionId").html("");-->
+        <!--var str = "<option>请选择</option>";-->
+        <!--var parentId = $('#cityId option:selected').val();-->
+        <!--//将市的ID拿到数据库进行查询，查询出他的下级进行绑定-->
+        <!--$.ajax({-->
+            <!--type: "get",-->
+            <!--url: "/getRegion/" + parentId,-->
+            <!--//data: { "parentId": ""},-->
+            <!--dataType: "JSON",-->
+            <!--async: false,-->
+            <!--success: function (response) {-->
+                <!--//从服务器获取数据进行绑定-->
+                <!--$.each(response.result.items, function (i, item) {-->
+                    <!--str += "<option value=" + item.id + ">" + item.regionName + "</option>";-->
+                <!--})-->
+                <!--//将数据添加到省份这个下拉框里面-->
+                <!--$("#sectionId").append(str);-->
+            <!--},-->
+            <!--error: function () { alert("Error"); }-->
+        <!--});-->
+    <!--}-->
+<!--</script>-->
+</body>
+</html>

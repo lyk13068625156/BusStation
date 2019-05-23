@@ -18,16 +18,16 @@ public class ListProvider {
             if (requestDto.getName() != null && StringUtils.isNotBlank(requestDto.getName())){
                 WHERE("name like CONCAT('%', #{name}, '%')");
             }
-            if (requestDto.getFirstStationName() != null && StringUtils.isNotBlank(requestDto.getFirstStationName())){
-                WHERE("first_station_name like CONCAT('%', #{firstStationName}, '%')");
-            }
-            if (requestDto.getLastStationName() != null && StringUtils.isNotBlank(requestDto.getLastStationName())){
-                WHERE("last_station_name like CONCAT('%', #{lastStationName}, '%')");
-            }
-            if (requestDto.getVia() != null && StringUtils.isNotBlank(requestDto.getVia())){
-                WHERE("via like CONCAT('%', #{via}, '%')");
-            }
-            if (requestDto.getStatus() != null && StringUtils.isNotBlank(requestDto.getStatus().toString())){
+//            if (requestDto.getFirstStationName() != null && StringUtils.isNotBlank(requestDto.getFirstStationName())){
+//                WHERE("first_station_name like CONCAT('%', #{firstStationName}, '%')");
+//            }
+//            if (requestDto.getLastStationName() != null && StringUtils.isNotBlank(requestDto.getLastStationName())){
+//                WHERE("last_station_name like CONCAT('%', #{lastStationName}, '%')");
+//            }
+//            if (requestDto.getVia() != null && StringUtils.isNotBlank(requestDto.getVia())){
+//                WHERE("via like CONCAT('%', #{via}, '%')");
+//            }
+            if (requestDto.getStatus() != null){
                 WHERE("status = #{status}");
             }
         }};

@@ -9,6 +9,7 @@ import org.gdou.busstation.dto.SaveStationRequestDto;
 import org.gdou.busstation.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ public class StationController {
     @Autowired
     StationService stationService;
 
-    @PostMapping(path = "/station")
+    @GetMapping(path = "/station")
     GetStationResponseDto getStation(GetStationRequestDto requestDto){
         System.out.println(requestDto.toString());
         GetStationResponseDto station = stationService.getStation(requestDto);

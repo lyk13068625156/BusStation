@@ -12,22 +12,19 @@ import java.io.Serializable;
 
 public class GetStationRequestDto implements Serializable {
   
-  private String province = null;
+  private Integer province = null;
   private Integer offset = null;
-  private String city = null;
+  private Integer city = null;
   private String name = null;
   private Integer limit = null;
-  private Integer cityId = null;
-  private Integer sectionId = null;
-  private String section = null;
+  private Integer section = null;
   private Integer id = null;
-  private Integer provinceId = null;
   private Integer status = null;
 
   
   /**
    **/
-  public GetStationRequestDto province(String province) {
+  public GetStationRequestDto province(Integer province) {
     this.province = province;
     return this;
   }
@@ -35,10 +32,10 @@ public class GetStationRequestDto implements Serializable {
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("province")
-  public String getProvince() {
+  public Integer getProvince() {
     return province;
   }
-  public void setProvince(String province) {
+  public void setProvince(Integer province) {
     this.province = province;
   }
 
@@ -63,7 +60,7 @@ public class GetStationRequestDto implements Serializable {
   
   /**
    **/
-  public GetStationRequestDto city(String city) {
+  public GetStationRequestDto city(Integer city) {
     this.city = city;
     return this;
   }
@@ -71,10 +68,10 @@ public class GetStationRequestDto implements Serializable {
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("city")
-  public String getCity() {
+  public Integer getCity() {
     return city;
   }
-  public void setCity(String city) {
+  public void setCity(Integer city) {
     this.city = city;
   }
 
@@ -117,43 +114,7 @@ public class GetStationRequestDto implements Serializable {
   
   /**
    **/
-  public GetStationRequestDto cityId(Integer cityId) {
-    this.cityId = cityId;
-    return this;
-  }
-
-  
-  @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("cityId")
-  public Integer getCityId() {
-    return cityId;
-  }
-  public void setCityId(Integer cityId) {
-    this.cityId = cityId;
-  }
-
-  
-  /**
-   **/
-  public GetStationRequestDto sectionId(Integer sectionId) {
-    this.sectionId = sectionId;
-    return this;
-  }
-
-  
-  @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("sectionId")
-  public Integer getSectionId() {
-    return sectionId;
-  }
-  public void setSectionId(Integer sectionId) {
-    this.sectionId = sectionId;
-  }
-
-  
-  /**
-   **/
-  public GetStationRequestDto section(String section) {
+  public GetStationRequestDto section(Integer section) {
     this.section = section;
     return this;
   }
@@ -161,10 +122,10 @@ public class GetStationRequestDto implements Serializable {
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("section")
-  public String getSection() {
+  public Integer getSection() {
     return section;
   }
-  public void setSection(String section) {
+  public void setSection(Integer section) {
     this.section = section;
   }
 
@@ -186,25 +147,7 @@ public class GetStationRequestDto implements Serializable {
     this.id = id;
   }
 
-  
-  /**
-   **/
-  public GetStationRequestDto provinceId(Integer provinceId) {
-    this.provinceId = provinceId;
-    return this;
-  }
 
-  
-  @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("provinceId")
-  public Integer getProvinceId() {
-    return provinceId;
-  }
-  public void setProvinceId(Integer provinceCode) {
-    this.provinceId = provinceId;
-  }
-
-  
   /**
    **/
   public GetStationRequestDto status(Integer status) {
@@ -238,17 +181,14 @@ public class GetStationRequestDto implements Serializable {
         Objects.equals(city, getStationRequest.city) &&
         Objects.equals(name, getStationRequest.name) &&
         Objects.equals(limit, getStationRequest.limit) &&
-        Objects.equals(cityId, getStationRequest.cityId) &&
-        Objects.equals(sectionId, getStationRequest.sectionId) &&
         Objects.equals(section, getStationRequest.section) &&
         Objects.equals(id, getStationRequest.id) &&
-        Objects.equals(provinceId, getStationRequest.provinceId) &&
         Objects.equals(status, getStationRequest.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(province, offset, city, name, limit, cityId, sectionId, section, id, provinceId, status);
+    return Objects.hash(province, offset, city, name, limit, section, id, status);
   }
 
   @Override
@@ -261,11 +201,8 @@ public class GetStationRequestDto implements Serializable {
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    cityId: ").append(toIndentedString(cityId)).append("\n");
-    sb.append("    sectionId: ").append(toIndentedString(sectionId)).append("\n");
     sb.append("    section: ").append(toIndentedString(section)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    provinceId: ").append(toIndentedString(provinceId)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

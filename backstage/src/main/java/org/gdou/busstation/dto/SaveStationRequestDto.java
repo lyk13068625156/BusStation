@@ -14,10 +14,10 @@ public class SaveStationRequestDto implements Serializable {
   
   private String address = null;
   private String name = null;
-  private Integer cityId = null;
-  private Integer sectionId = null;
+  private Integer city = null;
+  private Integer section = null;
   private Integer id = null;
-  private Integer provinceId = null;
+  private Integer province = null;
   private Integer status = null;
 
   
@@ -60,37 +60,37 @@ public class SaveStationRequestDto implements Serializable {
   
   /**
    **/
-  public SaveStationRequestDto cityId(Integer cityId) {
-    this.cityId = cityId;
+  public SaveStationRequestDto city(Integer city) {
+    this.city = city;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("city_code")
-  public Integer getCityId() {
-    return cityId;
+  @JsonProperty("city")
+  public Integer getCity() {
+    return city;
   }
-  public void setCityId(Integer cityCode) {
-    this.cityId = cityId;
+  public void setCity(Integer city) {
+    this.city = city;
   }
 
   
   /**
    **/
-  public SaveStationRequestDto sectionId(Integer sectionId) {
-    this.sectionId = sectionId;
+  public SaveStationRequestDto section(Integer section) {
+    this.section = section;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("sectionId")
-  public Integer getSectionId() {
-    return sectionId;
+  @JsonProperty("section")
+  public Integer getSection() {
+    return section;
   }
-  public void setSectionId(Integer sectionId) {
-    this.sectionId = sectionId;
+  public void setSection(Integer section) {
+    this.section = section;
   }
 
   
@@ -114,19 +114,19 @@ public class SaveStationRequestDto implements Serializable {
   
   /**
    **/
-  public SaveStationRequestDto provinceId(Integer provinceId) {
-    this.provinceId = provinceId;
+  public SaveStationRequestDto province(Integer province) {
+    this.province = province;
     return this;
   }
 
   
   @ApiModelProperty(example = "null", value = "")
-  @JsonProperty("provinceId")
-  public Integer getProvinceId() {
-    return provinceId;
+  @JsonProperty("province")
+  public Integer getProvince() {
+    return province;
   }
-  public void setProvinceId(Integer provinceId) {
-    this.provinceId = provinceId;
+  public void setProvince(Integer province) {
+    this.province = province;
   }
 
   
@@ -160,16 +160,16 @@ public class SaveStationRequestDto implements Serializable {
     SaveStationRequestDto saveStationRequest = (SaveStationRequestDto) o;
     return Objects.equals(address, saveStationRequest.address) &&
         Objects.equals(name, saveStationRequest.name) &&
-        Objects.equals(cityId, saveStationRequest.cityId) &&
-        Objects.equals(sectionId, saveStationRequest.sectionId) &&
+        Objects.equals(city, saveStationRequest.city) &&
+        Objects.equals(section, saveStationRequest.section) &&
         Objects.equals(id, saveStationRequest.id) &&
-        Objects.equals(provinceId, saveStationRequest.provinceId) &&
+        Objects.equals(province, saveStationRequest.province) &&
         Objects.equals(status, saveStationRequest.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, name, cityId, sectionId, id, provinceId, status);
+    return Objects.hash(address, name, city, section, id, province, status);
   }
 
   @Override
@@ -179,10 +179,10 @@ public class SaveStationRequestDto implements Serializable {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    cityId: ").append(toIndentedString(cityId)).append("\n");
-    sb.append("    sectionId: ").append(toIndentedString(sectionId)).append("\n");
+    sb.append("    cityId: ").append(toIndentedString(city)).append("\n");
+    sb.append("    sectionId: ").append(toIndentedString(section)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    provinceId: ").append(toIndentedString(provinceId)).append("\n");
+    sb.append("    provinceId: ").append(toIndentedString(province)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

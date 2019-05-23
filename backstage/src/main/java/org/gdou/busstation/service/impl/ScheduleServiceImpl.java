@@ -53,7 +53,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             if (schedule == null) {
                 throw new ServiceException(BusStationContants.SYS_NOT_FOUND,"找不到改班次");
             }
-            schedule.setLeaveTime(requestDto.getLeaveTime());
+            //schedule.setLeaveTime(requestDto.getLeaveTime());
             schedule.setPrice(requestDto.getPrice());
             schedule.setStatus(requestDto.getStatus());
             schedule.setUpdateTime(new Date());
